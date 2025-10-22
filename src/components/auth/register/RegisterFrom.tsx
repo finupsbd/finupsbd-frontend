@@ -36,11 +36,11 @@ export default function RegisterForm() {
   const form = useForm<z.infer<typeof registerValidationSchema>>({
     resolver: zodResolver(registerValidationSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
+      name: "Shamim Reza",
+      email: "shamimrezaone@gmail.com",
+      phone: "01910479167",
+      password: "123456",
+      confirmPassword: "123456",
     },
   });
 
@@ -52,18 +52,19 @@ export default function RegisterForm() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const result = await registerUser(data);
 
-      if (result.message.includes("phone")) {
-        return toast.error("Your phone number already use try anather number")
-      }
+      // if (result.message.includes("phone")) {
+      //   return toast.error("Your phone number already use try anather number")
+      // }
 
-
-      if (!result.success) {
-        toast.error("Already have a account with this email please try another email!")
-      }
+      // if (!result.success) {
+      //   toast.error("Already have a account with this email please try another email!")
+      // }
 
       if (result.success) {
-        toast.success("Cheack your email and and verify!")
-        router.push(`/otp-verification?email=${result?.data?.email}&redirectPath=${redirectPath}`);
+        toast.success(result.message)
+        router.push(`/otp-verification?phone=${result?.data?.phone}&redirectPath=${redirectPath}`);
+      } else {
+        return toast.error(result.message)
       }
     } catch (error: any) {
       console.log(error)

@@ -7,8 +7,8 @@ import { useSearchParams } from 'next/navigation';
 // A small client component that actually uses the hook:
 function OTPVerificationWithParams() {
   const searchParams = useSearchParams();
-  const email = searchParams.get('email') ?? '';
-  return <OTPVerificationForm email={email} />;
+  const phone = searchParams.get('phone') ?? '';
+  return <OTPVerificationForm phone={phone} />;
 }
 
 export default function OtpVerificationPage() {

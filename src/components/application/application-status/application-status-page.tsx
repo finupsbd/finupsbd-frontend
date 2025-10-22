@@ -170,6 +170,7 @@ export function ApplicationStatusForm({ applicationData }: ApplicationStatusPage
                     uploadedFiles={uploadedFiles}
                     setUploadedFiles={setUploadedFiles}
                     additionalDocumentSubmit={applicationData.additionalDocumentSubmit}
+                    additionalDocuments={applicationData.additionalDocuments}
                     appicationId={applicationData.id}
                 />
             )}

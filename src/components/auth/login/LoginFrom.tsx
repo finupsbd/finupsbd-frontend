@@ -38,7 +38,7 @@ export default function LoginForm() {
   const form = useForm<z.infer<typeof loginValidationSchema>>({
     resolver: zodResolver(loginValidationSchema),
     defaultValues: {
-      email: "",
+      identifier: "",
       password: "",
     },
   });
@@ -83,16 +83,16 @@ export default function LoginForm() {
               <div className="space-y-4">
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="identifier"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-black">
-                        Email Address
+                        Email or phone
                       </FormLabel>
                       <FormControl>
                         <Input
-                          type="email"
-                          placeholder="Enter your email"
+                          type="text"
+                          placeholder="Enter your email/phone"
                           {...field}
                           disabled={isLoading}
                           className="text-black"

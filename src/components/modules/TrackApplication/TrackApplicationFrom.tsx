@@ -67,7 +67,7 @@ export default function TrackApplicationForm() {
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1.04 }}
         transition={{ duration: 0.3 }}
-        className="w-full max-w-6xl"
+       
       >
         {applicationStatus && applicationStatusData ? (
           <TrackApplicationStatus

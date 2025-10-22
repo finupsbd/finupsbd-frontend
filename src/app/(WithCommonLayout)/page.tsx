@@ -5,6 +5,7 @@ import HomeSlider from "@/components/home-page/HomeSlider";
 import HowWeWorks from "@/components/home-page/HowWeWorks";
 import Promotion from "@/components/home-page/Promotion";
 import Services from "@/components/home-page/Services";
+import WhatsAppFloatButton from "@/components/home-page/WhatsAppFloatButton";
 import EMICalculatorButton from "@/components/tools/EMICalculatorButton";
 
 const HomePage = () => {
@@ -13,6 +14,7 @@ const HomePage = () => {
       <EMICalculatorButton />
       <HomeSlider />
       <Services />
+      <WhatsAppFloatButton phone="01711356235"/>
       <FinancialProducts />
       <HowWeWorks />
       <FeaturedArticles />

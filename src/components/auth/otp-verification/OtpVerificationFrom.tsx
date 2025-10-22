@@ -11,7 +11,7 @@ import { otpVerification } from "@/services/AuthService"
 import { toast } from "sonner"
 import { useRouter, useSearchParams } from "next/navigation"
 
-export default function OTPVerificationForm({ email }: { email: string }) {
+export default function OTPVerificationForm({ phone }: { phone: string }) {
     const [otp, setOtp] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [isResending, setIsResending] = useState(false)
@@ -49,19 +49,22 @@ export default function OTPVerificationForm({ email }: { email: string }) {
         setIsLoading(true)
         setError("")
 
+        console.log(phone, otp)
+
         try {
-            const response = await otpVerification(email, otp)
+            const response = await otpVerification(phone, otp)
 
             if (response.success) {
                 setSuccess(true)
-                toast.success("User verify successfully please Login")
+                toast.success(response.message)
                 router.push(redirectPath);
             } else {
-                const data = await response.json()
-                toast.error("Invalid OTP. Please try again.")
+                console.error(response.message)
+                toast.error(response.message)
                 setOtp("")
             }
         } catch (err) {
+            console.log(err)
             toast.error("Something went wrong. Please try again.")
             setOtp("")
         } finally {
@@ -76,9 +79,9 @@ export default function OTPVerificationForm({ email }: { email: string }) {
         try {
             // Replace this with your actual resend API call
 
-            console.log(email, otp)
+            console.log(phone, otp)
 
-            const response = await otpVerification(email, otp)
+            const response = await otpVerification(phone, otp)
             if (response.success) {
                 setTimeLeft(60)
                 setCanResend(false)
@@ -101,7 +104,7 @@ export default function OTPVerificationForm({ email }: { email: string }) {
                         <div className="text-center space-y-4">
                             <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
                             <h2 className="text-2xl font-semibold text-gray-900">Verified!</h2>
-                            <p className="text-gray-600">Your Email has been successfully verified.</p>
+                            <p className="text-gray-600">Your phone successfully verified.</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -113,9 +116,9 @@ export default function OTPVerificationForm({ email }: { email: string }) {
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
             <Card className="w-full max-w-md">
                 <CardHeader className="text-center">
-                    <CardTitle className="text-2xl font-semibold">Verify Your Email</CardTitle>
+                    <CardTitle className="text-2xl font-semibold">Verify Your Phone</CardTitle>
                     <CardDescription>
-                        We've sent a 6-digit verification code to your email. Enter it below to continue.
+                        We've sent a 6-digit verification code to your phone. Enter it below to continue.
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">

@@ -16,6 +16,7 @@ interface FileUploadSectionProps {
   uploadedFiles: File[]
   setUploadedFiles: (files: File[]) => void
   additionalDocumentSubmit: boolean,
+  additionalDocuments: boolean,
   appicationId: string
 }
 
@@ -23,6 +24,7 @@ export function FileUploadSection({
   uploadedFiles,
   setUploadedFiles,
   additionalDocumentSubmit,
+  additionalDocuments,
   appicationId,
 }: FileUploadSectionProps) {
   const [dragActive, setDragActive] = useState(false)
@@ -121,6 +123,8 @@ export function FileUploadSection({
     }
   }
 
+  console.log(additionalDocumentSubmit)
+
   const getFileIcon = (fileType: string) => {
     if (fileType.startsWith("image/")) {
       return "🖼️"
@@ -192,7 +196,7 @@ export function FileUploadSection({
           <CardDescription>Upload required documents to complete your application</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          {additionalDocumentSubmit &&  (
+          { additionalDocuments &&  (
             <>
               {/* File Upload Area */}
               <div

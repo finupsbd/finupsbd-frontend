@@ -189,10 +189,10 @@ export const resetPassword = async (payload: {email: string, newPassword: string
 
 
 
-export const otpVerification = async (email: string | null, pin: string) => {
+export const otpVerification = async (phone: string | null, pin: string) => {
 
     const payload = {
-        email,
+        phone,
         pin
     }
     try {
