@@ -3,11 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-<<<<<<< HEAD
-    "dev": "next dev --port 3000",
-=======
     "dev": "next dev -p 3000",
->>>>>>> 2dd7725 (Update fetcher and package.json for production)
     "build": "next build",
     "start": "next start -p 3000",
     "lint": "next lint"
