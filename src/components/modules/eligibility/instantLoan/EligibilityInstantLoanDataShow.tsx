@@ -199,11 +199,11 @@ function EligibilityInstantLoanDataShow({
                       BDT {formatBDT(data.eligibleLoan)}/-
                     </p>
                   </div>
-                  <div className="mt-3 flex justify-end">
+                  {/* <div className="mt-3 flex justify-end">
                     <Button onClick={() => handelApplication(data)}>
                       Apply
                     </Button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 

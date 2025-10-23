@@ -515,12 +515,12 @@ function EligibilityCheckDataShow({ submissionData, onSendData }: PageProps) {
                             BDT {formatBDT(data?.eligibleLoan)}/-
                           </div>
                         </div>
-                        <Button
+                        {/* <Button
                           onClick={() => handelApplication(data)}
                           className="w-full bg-primary hover:bg-primary/90"
                         >
                           Apply Now
-                        </Button>
+                        </Button> */}
                         <Button
                           variant="outline"
                           onClick={() => handleCompare(Number(index))}

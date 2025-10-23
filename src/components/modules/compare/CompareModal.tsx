@@ -110,12 +110,12 @@ export default function CompareModal({
                     key={idx}
                     className="border border-gray-200 p-3 text-center"
                   >
-                    <Button
+                    {/* <Button
                       onClick={() => handelApplication(bank)}
                       className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
                     >
                       Apply
-                    </Button>
+                    </Button> */}
                   </td>
                 ))}
               </tr>

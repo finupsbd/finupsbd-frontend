@@ -371,12 +371,12 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col items-end gap-3">
-                                                    <Button
+                                                    {/* <Button
                                                         onClick={() => handelApplication(card)}
                                                         className="w-full bg-primary hover:bg-primary/90"
                                                     >
                                                         Apply Now
-                                                    </Button>
+                                                    </Button> */}
                                                     <label className="flex items-center gap-2">
                                                         <Checkbox
                                                             checked={selectedCards.includes(card.id)}
@@ -644,7 +644,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                 </tr>
 
                                 {/* Apply Now Buttons */}
-                                <tr>
+                                {/* <tr>
                                     <td className="p-4"></td>
                                     {selectedCardDetails.map((card) => (
                                         <td key={card.id} className="p-4 text-center">
@@ -653,7 +653,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                             </Button>
                                         </td>
                                     ))}
-                                </tr>
+                                </tr> */}
                             </tbody>
                         </table>
                     </div>
