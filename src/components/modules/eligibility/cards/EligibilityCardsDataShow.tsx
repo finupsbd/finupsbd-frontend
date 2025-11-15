@@ -9,84 +9,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { ChevronDown, ChevronUp, Heart } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { CreditCard, FiltersType, TCardsResponse } from "../EligibilityTypes"
 
-interface FeaturesCreditCard {
-    id: string
-    features1: string
-    features2: string
-    features3: string
-    features4: string
-    features5: string
-    creditCardId: string
-}
-
-interface EligibilityCreditCard {
-    id: string
-    condition: string
-    offer: string
-    minimumIncome: number
-    minimumExperience: number
-    ageRequirement: number
-    creditCardId: string
-}
-
-interface FeesChargesCreditCard {
-    id: string
-    annualFee: string
-    annualFeeWaived: string
-    latePaymentFee: string
-    interestRate: string
-    balanceTransferRate: string
-    creditCardId: string
-}
-
-export interface CreditCard {
-    id: string
-    bankName: string
-    interestPerDay: string
-    freeAnnualFee: string
-    regularAnnualFee: string
-    interestFreePeriod: string
-    latePaymentFees: string
-    currency: string
-    cardFeaturesType: string
-    cardNetwork: string
-    annualFeeWaivedReward: string
-    freeSupplementaryCards: string
-    maxSupplementaryCards: string
-    balanceTransferAvailability: string
-    ownBankATMFee: string
-    otherBankATMFee: string
-    loungeFacility: string
-    loungeVisit: string
-    cardChequeProcessingFee: string
-    processingFeeMinimum: string
-    cashWithdrawalLimit: string
-    cardType: string
-    isActive: boolean
-    coverImage: string
-    createdAt: string
-    updatedAt: string
-    userId: string | null
-    featuresCreditCard: FeaturesCreditCard
-    eligibilityCreditCard: EligibilityCreditCard
-    feesChargesCreditCard: FeesChargesCreditCard
-}
-
-// Mock data based on your structure - replace with actual API call
-
-export type FiltersType = {
-    currency: string[];
-    network: string[];
-    type: string[];
-};
 
 
 type EligibilityCardDataShowProps = {
     handleQueryDataBody: (filters: FiltersType) => void;
-    submissionData: CreditCard[]
+    submissionData: TCardsResponse
 }
 
 
@@ -105,6 +35,8 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
 
     const router = useRouter()
 
+   
+
     // Load data on component mount
 
     useEffect(() => {
@@ -114,7 +46,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
 
     useEffect(() => {
         // Replace this with your actual API call
-        setCreditCards(submissionData)
+        setCreditCards(submissionData.data)
     }, [submissionData])
 
 
@@ -158,8 +90,8 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
     const selectedCardDetails = creditCards.filter((card) => selectedCards.includes(card.id))
 
     const getCardFeatures = (card: CreditCard): string[] => {
-        const features = card.featuresCreditCard
-        return [features.features1, features.features2, features.features3, features.features4, features.features5].filter(
+        const features = card.features
+        return [features?.features1, features?.features2, features?.features3, features?.features4, features?.features5].filter(
             Boolean,
         )
     }
@@ -359,7 +291,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                                             </div>
                                                             <div>
                                                                 <span className="text-gray-600">Interest Rate:</span>{" "}
-                                                                {card.feesChargesCreditCard.interestRate}
+                                                                {/* {card?.feesChargesCreditCard?.interestRate} */}
                                                             </div>
                                                             <div>
                                                                 <span className="text-gray-600">Interest Free Period:</span> {card.interestFreePeriod}
@@ -429,8 +361,8 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                 </div>
             </div>
 
-            {/* <ComparisonCardData submissionData={submissionData}/>                     */}
-            {/* Comparison Modal */}
+            {/* <ComparisonCardData submissionData={submissionData} open={showComparison} onOpenChange={setShowComparison}/>                    
+            Comparison Modal */}
             <Dialog open={showComparison} onOpenChange={setShowComparison}>
                 <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader className="border-b pb-4">
@@ -492,7 +424,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                     <td className="p-3 font-medium">Annual fee waived</td>
                                     {selectedCardDetails.map((card) => (
                                         <td key={card.id} className="p-3 text-center">
-                                            {card.feesChargesCreditCard.annualFeeWaived}
+                                            {/* {card?.feesChargesCreditCard?.annualFeeWaived} */}
                                         </td>
                                     ))}
                                 </tr>
@@ -500,7 +432,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                     <td className="p-3 font-medium">Annual fee waived Reward Point</td>
                                     {selectedCardDetails.map((card) => (
                                         <td key={card.id} className="p-3 text-center">
-                                            {card.annualFeeWaivedReward}
+                                            {card?.annualFeeWaivedReward}
                                         </td>
                                     ))}
                                 </tr>
@@ -622,7 +554,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                     <td className="p-3 font-medium">Card Charges Processing Fee</td>
                                     {selectedCardDetails.map((card) => (
                                         <td key={card.id} className="p-3 text-center">
-                                            {card.cardChequeProcessingFee}
+                                            {/* {card.cardChequeProcessingFee} */}
                                         </td>
                                     ))}
                                 </tr>

@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { useDebounce } from "@/hooks/useDebounce";
-import { formatBDT } from "@/utils";
+import { formatBDT, formatEnums } from "@/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import { EligibilityData } from "../EligibilityTypes";
 import icon_success from "/public/icon-success.svg";
+import NotFound from "@/app/not-found";
 
 type PageProps = {
   submissionData: EligibilityData[]; // Ensure submissionData is an array of EligibilityData
@@ -33,6 +34,8 @@ function EligibilityInstantLoanDataShow({
   const queryData = {
     tenure: debounceTenure,
   };
+
+  console.log(submissionData)
 
   useEffect(() => {
     if (debounceTenure) {
@@ -59,6 +62,8 @@ function EligibilityInstantLoanDataShow({
     router.push(`/user/loan-application`);
   };
 
+
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowConfetti(false);
@@ -66,13 +71,14 @@ function EligibilityInstantLoanDataShow({
     return () => clearTimeout(timer);
   }, []);
 
+  
   if (!submissionData) {
-    console.log("A;;;;");
+    <NotFound/>
   }
 
   return (
     <>
-      {submissionData.map((data: EligibilityData) => (
+      {submissionData?.map((data: EligibilityData) => (
         <div
           key={data.id}
           className="mx-auto my-14 max-w-5xl rounded-lg bg-white p-8 shadow-[0_2px_15px_rgba(0,0,0,0.1)]"
@@ -151,7 +157,7 @@ function EligibilityInstantLoanDataShow({
                         priority
                       />
                     </div>
-                    <h2 className="text-lg font-bold">{data.bankName}</h2>
+                    <h2 className="text-lg font-bold">{formatEnums(data?.bankName)}</h2>
                   </div>
                 </div>
 
@@ -164,7 +170,7 @@ function EligibilityInstantLoanDataShow({
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">Interest Rate:</p>
-                    <p className="font-medium">{data.interestRate}%</p>
+                    <p className="font-medium">{data?.interestRate}%</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">Period (Months):</p>
@@ -199,11 +205,11 @@ function EligibilityInstantLoanDataShow({
                       BDT {formatBDT(data.eligibleLoan)}/-
                     </p>
                   </div>
-                  {/* <div className="mt-3 flex justify-end">
+                  <div className="mt-3 flex justify-end">
                     <Button onClick={() => handelApplication(data)}>
-                      Apply
+                      Apply Loan
                     </Button>
-                  </div> */}
+                  </div>
                 </div>
               </div>
 

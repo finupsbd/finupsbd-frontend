@@ -62,7 +62,7 @@ export default function CompareModal({
 
         {/* Header */}
         <div className="mb-6 text-center">
-          <h2 className="text-2xl font-bold text-gray-800">Compare</h2>
+          <h2 className="text-2xl font-bold text-gray-800">Compare Lonas</h2>
         </div>
 
         {/* Table */}
@@ -83,10 +83,10 @@ export default function CompareModal({
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 ">
               {fields.map((field) => (
                 <tr key={field.key}>
-                  <td className="border border-gray-200 p-3 font-medium">
+                  <td className="border border-gray-200 p-3 font-medium bg-green-100">
                     {field.label}
                   </td>
                   {compareData.dynamicData.map((bank, index) => (

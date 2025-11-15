@@ -11,7 +11,7 @@ import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCompare } from "@/context/CompareContext";
 import { useDebounce } from "@/hooks/useDebounce";
-import { formatBDT } from "@/utils";
+import { formatBDT, formatEnums } from "@/utils";
 import { Heart, RotateCcw } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -306,7 +306,7 @@ function EligibilityCheckDataShow({ submissionData, onSendData }: PageProps) {
                               priority
                             />
                             <div>
-                              <h3 className="font-semibold">{data.bankName}</h3>
+                              <h3 className="font-semibold">{`${formatEnums(data.bankName)}, ${formatEnums(data.loanType)}`}</h3>
                               <div className="mt-2 flex gap-2">
                                 <Badge
                                   variant="secondary"

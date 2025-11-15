@@ -1,7 +1,9 @@
 "use client";
 
 import LoadingComponent from "@/components/loading/LoadingComponent";
-import EligibilityCardDataShow, { FiltersType } from "@/components/modules/eligibility/cards/EligibilityCardsDataShow";
+import EligibilityCardDataShow from "@/components/modules/eligibility/cards/EligibilityCardsDataShow";
+
+import { FiltersType, TCardsResponse } from "@/components/modules/eligibility/EligibilityTypes";
 import { Button } from "@/components/ui/button";
 import { eligibilityCheckData } from "@/services/eligibilityCheck";
 import { useEffect, useState } from "react";
@@ -15,7 +17,7 @@ export interface QueryDataProps {
 
 
 const CardsPage = () => {
-  const [submissionData, setSubmissionData] = useState([]);
+  const [submissionData, setSubmissionData] = useState<TCardsResponse>();
   const [isLoading, setIsLoading] = useState(true);
   const [queryData, setQueryData] = useState<{ tenure: number }>();
   const [queryDataBody, setQueryDataBody] = useState<FiltersType>()
@@ -25,7 +27,6 @@ const CardsPage = () => {
   };
 
 
-  console.log(submissionData)
 
   const handleQueryDataBody = (data: FiltersType) => {
     setQueryDataBody(data);
@@ -41,7 +42,6 @@ const CardsPage = () => {
         const data = sessionStorage.getItem("eligibilityData");
         if (data) {
           const payload = JSON.parse(data);
-          console.log({payload})
           const result = await eligibilityCheckData(payload, queryData);
 
           if (result.success) {
@@ -68,6 +68,9 @@ const CardsPage = () => {
   function handleStartEligibilityCheck(): void {
     window.location.href = "/";
   }
+
+
+  console.log(submissionData)
 
   return (
     <div> {submissionData ? (< EligibilityCardDataShow handleQueryDataBody={handleQueryDataBody} submissionData={submissionData}  />) : (

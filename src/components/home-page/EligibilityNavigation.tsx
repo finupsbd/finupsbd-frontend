@@ -5,28 +5,28 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-import { MoveUpRight, Terminal } from "lucide-react";
+import { MoveUpRight } from "lucide-react";
 import { toast } from "sonner";
-
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
-import { CommingSoon } from "../comming-Soon/CommingSoon";
 import EligibilityCheckModal from "../modules/eligibility/EligibilityCheckModal";
-import { loanTypes } from "../modules/eligibility/form-steps/form-data-oprions";
+import { cards, loanTypes } from "../modules/eligibility/form-steps/form-data-oprions";
+
+
+
+
 
 function EligibilityNavigation() {
   // Track the selected loan type
   const [loanType, setLoanType] = useState("");
   const [openEligibility, setOpenEligibility] = useState(false);
-  const [error, setError] = useState(false);
   const router = useRouter();
-  const [open, setOpen] = useState(false);
+  // const [openCommingSoon, setOpenCommingSoon] = useState(false);
 
+
+  
   // Send data to backend (Compare Loan)
   async function handleCompareLoan() {
     if (loanType == "") {
-      setError(true);
       return toast.error("Please Select any loan option for compare Loan");
     }
     router.push(`/eligibility?loanType=${loanType}&compare=true`);
@@ -35,42 +35,37 @@ function EligibilityNavigation() {
   // Send data to backend (Check Eligibility)
   async function handleCheckEligibility() {
     if (loanType == "") {
-      setError(true);
-      return toast.error("Select any loan");
+      return toast.error("Select any loans or cards for eligiblity check");
     }
-    if (
-      loanType == "HOME_LOAN" ||
-      loanType == "CAR_LOAN" ||
-      loanType == "SME_LOAN" ||
-      loanType == "DEBIT_CARD" ||
-      loanType == "PREPAID_CARD"
-    ) {
-      return setOpen(true);
+
+    if (loanType === "DEBIT_CARD" || loanType === "PREPAID_CARD") {
+      router.push('/eligibility-cards')
     }
-    setOpenEligibility(true);
+    else {
+      setOpenEligibility(true);
+    }
+    //   return setOpenCommingSoon(true);
+    // }
+
   }
 
-  useEffect(() => {
-    if (
-      loanType == "HOME_LOAN" ||
-      loanType == "CAR_LOAN" ||
-      loanType == "SME_LOAN" ||
-      loanType == "DEBIT_CARD" ||
-      loanType == "PREPAID_CARD"
-    ) {
-      setOpen(true);
-    }
+  // useEffect(() => {
+  //   if (
+  //     loanType == "HOME_LOAN" ||
+  //     loanType == "CAR_LOAN" ||
+  //     loanType == "SME_LOAN" ||
+  //     loanType == "DEBIT_CARD" ||
+  //     loanType == "PREPAID_CARD"
+  //   ) {
+  //     setOpenCommingSoon(true);
+  //   }
 
-    return () => {
-      setOpen(false);
-    };
-  }, [loanType]);
+  //   return () => {
+  //     setOpenCommingSoon(false);
+  //   };
+  // }, [loanType]);
 
-  useEffect(() => {
-    if (loanType !== "") {
-      setError(false);
-    }
-  }, [loanType]);
+
 
   return (
     <div className="container-sm relative z-10 p-6">
@@ -82,6 +77,8 @@ function EligibilityNavigation() {
           {/* Loans tab content */}
           <div className="relative m-2 min-h-44 rounded-xl bg-white p-6 pt-10 shadow-[0px_0px_25px_2px_rgba(0,0,0,0.1)] lg:pt-10">
             <div className="flex items-center justify-center">
+
+              { }
               <TabsList className="absolute -top-6 z-10 bg-white px-2 py-6 shadow-[0px_0px_25px_2px_rgba(0,0,0,0.1)] md:space-x-12">
                 <TabsTrigger
                   value="loans"
@@ -96,7 +93,7 @@ function EligibilityNavigation() {
                   Cards
                 </TabsTrigger>
                 {/* TODO: WILL ENABLE FUTURE */}
-                {/* <TabsTrigger
+                <TabsTrigger
                   value="insurance"
                   className="rounded-lg px-3 py-2 text-sm font-semibold !text-primary hover:bg-[#E7FDE2] data-[state=active]:!bg-primary data-[state=active]:!text-white lg:px-6 lg:text-base"
                 >
@@ -107,18 +104,11 @@ function EligibilityNavigation() {
                   className="rounded-lg px-3 py-2 text-sm font-semibold !text-primary hover:bg-[#E7FDE2] data-[state=active]:!bg-primary data-[state=active]:!text-white lg:px-6 lg:text-base"
                 >
                   Investment
-                </TabsTrigger> */}
+                </TabsTrigger>
               </TabsList>
             </div>
             <TabsContent value="loans">
-              {error ? (
-                <Alert variant="destructive" className="mb-4">
-                  <Terminal className="h-4 w-4" />
-                  <AlertDescription>
-                    Please Select any loan option !!
-                  </AlertDescription>
-                </Alert>
-              ) : null}
+
               <div className="flex flex-col space-y-4">
                 {/* Radio buttons for loan types */}
                 <RadioGroup
@@ -150,11 +140,11 @@ function EligibilityNavigation() {
                     <MoveUpRight size={28} strokeWidth={2.5} />
                   </Button> */}
                   <Button
-                    className="h-12 w-full lg:w-1/3"
+                    className="flex items-center justify-center gap-2 h-12 w-full lg:w-1/3"
                     onClick={handleCheckEligibility}
                   >
-                    Check Eligibility
-                    <MoveUpRight size={28} strokeWidth={2.5} />
+                    {loanType === "DEBIT_CARD" ? "Compare Card" : "Check Eligibility"}
+                    <MoveUpRight size={22} strokeWidth={2.5} />
                   </Button>
                 </div>
               </div>
@@ -169,20 +159,19 @@ function EligibilityNavigation() {
                   onValueChange={setLoanType} // track changes
                   className="gird mb-4 mt-2 flex-none grid-cols-2 justify-center gap-6 lg:flex lg:flex-row lg:items-center"
                 >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem id="PEOSONAL_LOAN" value="CREDIT_CARD" />
-                    <Label htmlFor="PEOSONAL_LOAN">Credit Card</Label>
-                  </div>
 
-                  {/* TODO: WILL ENABLE FUTURE */}
-                  {/* <div className="flex items-center space-x-2">
-                    <RadioGroupItem id="HOME_LOAN" value="DEBIT_CARD" />
-                    <Label htmlFor="HOME_LOAN">Debit Cards</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem id="CAR_LOAN" value="PREPAID_CARD" />
-                    <Label htmlFor="CAR_LOAN">Prepaid Cards</Label>
-                  </div> */}
+                  {cards?.map((card) => (
+                    <div
+                      key={card.value}
+                      className="flex items-center space-x-2"
+                    >
+                      <RadioGroupItem id={card.value} value={card.value} />
+                      <Label className="cursor-pointer" htmlFor={card.value}>
+                        {card.label}
+                      </Label>
+                    </div>
+                  ))}
+
                 </RadioGroup>
 
                 {/* Action buttons */}
@@ -221,7 +210,9 @@ function EligibilityNavigation() {
           </div>
         </Tabs>
       </div>
-      <CommingSoon open={open} onOpenChange={setOpen} />
+      {/* <CommingSoon open={openCommingSoon} onOpenChange={setOpenCommingSoon} /> */}
+
+      {/* Eligiblity Check model  open*/}
       <EligibilityCheckModal
         open={openEligibility}
         onOpenChange={setOpenEligibility} // pass setState so the modal can close itself

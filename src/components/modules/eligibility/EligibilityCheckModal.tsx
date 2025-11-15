@@ -58,9 +58,9 @@ function EligibilityCheckModal({
       // cardLimitBDT: 0,
       // haveAnyRentalIncome: "NO",
       // rentalIncome: 0,
-      // name: "",
-      // email: "",
-      // phone: "",
+      // name: "reza",
+      // email: "shamimrezaone@gmail.com",
+      // phone: "01531297878",
     },
     mode: "onTouched",
   });
@@ -99,6 +99,8 @@ function EligibilityCheckModal({
   //   return valid;
   // };
 
+
+  
   const validateStep = async () => {
     const schema =
       step === 0

@@ -1,6 +1,6 @@
 "use server";
 
-import { FiltersType } from "@/components/modules/eligibility/cards/EligibilityCardsDataShow";
+
 
 export const eligibilityCheckData = async (payload: any, queryData: any) => {
 

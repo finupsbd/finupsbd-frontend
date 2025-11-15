@@ -1,9 +1,15 @@
 export const loanTypes = [
   { label: "Personal Loan", value: "PERSONAL_LOAN" },
   { label: "Finups Agrim", value: "INSTANT_LOAN" },
-  // { label: "Home Loan", value: "HOME_LOAN" },
-  // { label: "Car Loan", value: "CAR_LOAN" },
-  // { label: "SME Loan", value: "SME_LOAN" },
+  { label: "Home Loan", value: "HOME_LOAN" },
+  { label: "Car Loan", value: "CAR_LOAN" },
+  { label: "SME Loan", value: "SME_LOAN" },
+];
+
+export const cards = [
+  { label: "Credit Card", value: "CREDIT_CARD" },
+  { label: "Debit card", value: "DEBIT_CARD" },
+  { label: "Prepaid Card", value: "PREPAID_CARD" },
 ];
 
 export const genderOptions = [
