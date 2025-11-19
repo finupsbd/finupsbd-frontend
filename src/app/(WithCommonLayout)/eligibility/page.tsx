@@ -6,9 +6,8 @@ import { TEligibilityCheckDataShow } from "@/components/modules/eligibility/Elig
 import { Button } from "@/components/ui/button";
 import { eligibilityCheckData } from "@/services/eligibilityCheck";
 import { useSearchParams } from "next/navigation";
-
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+
 
 export interface QueryData {
   amount: number;
@@ -18,7 +17,6 @@ export interface QueryData {
   page: number;
   sortKey: string;
 }
-
 
 
 
@@ -34,8 +32,6 @@ const EligibilityPage = () => {
     amount: 0,
   });
   const searchParams = useSearchParams();
-  const loanType = searchParams.get("loanType");
-  const compareValue = searchParams.get("compare");
 
 
 

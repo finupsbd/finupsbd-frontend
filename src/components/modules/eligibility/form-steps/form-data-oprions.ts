@@ -8,7 +8,7 @@ export const loanTypes = [
 
 export const cards = [
   { label: "Credit Card", value: "CREDIT_CARD" },
-  { label: "Debit card", value: "DEBIT_CARD" },
+  { label: "Travel Card", value: "TRAVEL_CARD" },
   { label: "Prepaid Card", value: "PREPAID_CARD" },
 ];
 

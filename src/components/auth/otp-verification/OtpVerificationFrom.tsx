@@ -25,7 +25,6 @@ export default function OTPVerificationForm({ phone }: { phone: string }) {
 
 
 
-
     // Countdown timer for resend
     useEffect(() => {
         if (timeLeft > 0) {

@@ -18,7 +18,6 @@ export const eligibilityCheckData = async (payload: any, queryData: any) => {
 
     const jsonData = await res.json();
 
-
     return jsonData;
 
   } catch (error) {

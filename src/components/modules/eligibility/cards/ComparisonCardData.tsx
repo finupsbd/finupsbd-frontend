@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { TCardsResponse } from "../EligibilityTypes";
+import { formatEnums } from "@/utils";
 
 
 
@@ -24,7 +25,7 @@ const ComparisonCardData = ({submissionData, open,  onOpenChange}: ComparisonCar
                 <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader className="border-b pb-4">
                         <DialogTitle className="text-xl font-semibold text-center">
-                            Choose your best suitable Credit card
+                            Choose your best suitable Credit cards
                         </DialogTitle>
                     </DialogHeader>
 
@@ -44,7 +45,7 @@ const ComparisonCardData = ({submissionData, open,  onOpenChange}: ComparisonCar
                                                     alt={`${card.bankName} ${card.cardFeaturesType}`}
                                                     className="w-16 h-10 object-contain"
                                                 />
-                                                <div className="text-sm font-medium">{card.bankName}</div>
+                                                <div className="text-sm font-medium">{formatEnums(card.bankName)}</div>
                                                 <div className="text-xs text-gray-600">
                                                     {card.cardFeaturesType} {card.cardNetwork}
                                                 </div>

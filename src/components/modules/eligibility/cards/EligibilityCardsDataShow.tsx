@@ -11,6 +11,8 @@ import { ChevronDown, ChevronUp, Heart } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { CreditCard, FiltersType, TCardsResponse } from "../EligibilityTypes"
+import { formatEnums, formatLabel } from "@/utils"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 
 
@@ -32,10 +34,14 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
         type: [] as string[],
     })
     const [expandedCards, setExpandedCards] = useState<string[]>([])
+    const [isExpanded, setIsExpanded] = useState(false);
+
 
     const router = useRouter()
 
-   
+
+    console.log(submissionData)
+
 
     // Load data on component mount
 
@@ -62,6 +68,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
     }
 
     const handleCompare = () => {
+        setShowComparison(true)
         if (selectedCards.length >= 2) {
             setShowComparison(true)
         }
@@ -80,14 +87,14 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
         }))
     }
 
-    const filteredCards = creditCards.filter((card) => {
+    const filteredCards = creditCards?.filter((card) => {
         if (filters.network.length > 0 && !filters.network.includes(card.cardNetwork)) return false
         if (filters.type.length > 0 && !filters.type.includes(card.cardFeaturesType)) return false
         if (filters.currency.length > 0 && !filters.currency.includes(card.currency)) return false
         return card.isActive
     })
 
-    const selectedCardDetails = creditCards.filter((card) => selectedCards.includes(card.id))
+    const selectedCardDetails = creditCards?.filter((card) => selectedCards.includes(card.id))
 
     const getCardFeatures = (card: CreditCard): string[] => {
         const features = card.features
@@ -235,23 +242,24 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                             </div>
                         </div>
 
-                        <div className="mb-4">
+                        <div className="mb-4 flex items-center space-x-5">
                             <span className="text-sm text-gray-600">We found {filteredCards.length} Credit Cards</span>
+                            {/* Compare Button */}
+                            {selectedCards.length >= 2 && (
+                                <div>
+                                    <Button
+                                        onClick={handleCompare}
+                                        className="text-white px-6 py-3 rounded-lg shadow-lg"
+                                    >
+                                        Compare ({selectedCards.length})
+                                    </Button>
+
+                                </div>
+                            )}
                         </div>
 
-                        {/* Compare Button */}
-                        {selectedCards.length >= 2 && (
-                            <div className="fixed bottom-6 right-6 z-50">
-                                <Button
-                                    onClick={handleCompare}
-                                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-lg"
-                                >
-                                    Compare ({selectedCards.length})
-                                </Button>
-                            </div>
-                        )}
 
-                        {/* Card List */}
+                        {/*///////////////////////////////////////// Card List //////////////////////////////////////////////////////////////////////*/}
                         <div className="space-y-4">
                             {filteredCards.map((card) => (
                                 <Card key={card.id} className="overflow-hidden">
@@ -263,7 +271,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                                         <Image
                                                             height={200}
                                                             width={200}
-                                                            src={card.coverImage || "/placeholder.svg"}
+                                                            src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${card.cardImage}`}
                                                             alt={`${card.bankName} ${card.cardFeaturesType}`}
                                                             className="max-w-full max-h-full object-contain"
                                                         />
@@ -283,7 +291,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                                             </Button>
                                                         </div>
                                                         <h3 className="font-semibold text-lg mb-2">
-                                                            {card.bankName} {card.cardFeaturesType} {card.cardNetwork}
+                                                            {formatEnums(card.bankName)}, {formatEnums(card.cardFeaturesType)}  {formatEnums(card.cardType)}
                                                         </h3>
                                                         <div className="grid grid-cols-2 gap-4 text-sm">
                                                             <div>
@@ -291,7 +299,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                                             </div>
                                                             <div>
                                                                 <span className="text-gray-600">Interest Rate:</span>{" "}
-                                                                {/* {card?.feesChargesCreditCard?.interestRate} */}
+                                                                {card?.feesCharges?.interestRate}
                                                             </div>
                                                             <div>
                                                                 <span className="text-gray-600">Interest Free Period:</span> {card.interestFreePeriod}
@@ -309,18 +317,25 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                                     >
                                                         Apply Now
                                                     </Button> */}
-                                                    <label className="flex items-center gap-2">
-                                                        <Checkbox
-                                                            checked={selectedCards.includes(card.id)}
-                                                            onCheckedChange={() => handleCardSelection(card.id)}
-                                                            disabled={!selectedCards.includes(card.id) && selectedCards.length >= 4}
-                                                        />
-                                                        <span className="text-sm">Compare</span>
-                                                    </label>
+                                                    <Button
+                                                        onClick={() => handleCardSelection(card.id)}
+                                                        disabled={!selectedCards.includes(card.id) && selectedCards.length >= 4}
+                                                        className={`
+                                                            w-full py-2 text-sm font-medium rounded-lg border transition-all
+                                                            ${
+                                                            selectedCards.includes(card.id)
+                                                                ? "bg-green-600 text-white border-green-600"           // When selected
+                                                                : "bg-white text-green-600 border-green-600 hover:bg-green-50"  // Default
+                                                            }
+                                                            disabled:opacity-40 disabled:cursor-not-allowed
+                                                        `}
+                                                        >
+                                                        {selectedCards.includes(card.id) ? "Selected" : "Compare Now"}
+                                                        </Button>
                                                 </div>
                                             </div>
 
-                                            <Collapsible>
+                                            {/* <Collapsible>
                                                 <CollapsibleTrigger
                                                     className="flex items-center gap-2 mt-4 text-blue-600 hover:text-blue-700"
                                                     onClick={() => toggleCardExpansion(card.id)}
@@ -351,7 +366,88 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                                         </div>
                                                     </div>
                                                 </CollapsibleContent>
+                                            </Collapsible> */}
+                                            <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
+                                                {/* 1. Collapsible Trigger (View Details) */}
+                                                <CollapsibleTrigger
+                                                    className="flex items-center gap-2 mt-4 text-blue-600 hover:text-blue-700"
+                                                >
+                                                    <span className="text-sm font-medium">View Details</span>
+                                                    {isExpanded ? (
+                                                        <ChevronUp className="w-4 h-4" />
+                                                    ) : (
+                                                        <ChevronDown className="w-4 h-4" />
+                                                    )}
+                                                </CollapsibleTrigger>
+
+                                                {/* 2. Collapsible Content (The Tabs) */}
+                                                <CollapsibleContent className="mt-4">
+                                                    <div className="border-t pt-4">
+                                                        <Tabs defaultValue="features" className="w-full">
+                                                            {/* Tab List */}
+                                                            <TabsList className="grid w-full grid-cols-3 h-auto justify-start bg-transparent p-0 mb-4 border-b">
+                                                                <TabsTrigger
+                                                                    value="features"
+                                                                    className="pb-2 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 text-gray-600 rounded-none text-sm font-medium w-fit px-0"
+                                                                >
+                                                                    Features
+                                                                </TabsTrigger>
+                                                                <TabsTrigger
+                                                                    value="eligibility"
+                                                                    className="pb-2 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 text-gray-600 rounded-none text-sm font-medium w-fit px-0"
+                                                                >
+                                                                    Eligibility
+                                                                </TabsTrigger>
+                                                                <TabsTrigger
+                                                                    value="feesCharges"
+                                                                    className="pb-2 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 text-gray-600 rounded-none text-sm font-medium w-fit px-0"
+                                                                >
+                                                                    Fees & Charges
+                                                                </TabsTrigger>
+                                                            </TabsList>
+
+                                                            {/* Tab Content - Features */}
+                                                            <TabsContent value="features" className="space-y-2 mt-4">
+                                                                {Object.entries(card.features).filter(([key]) => key !== "cardId" && key !== "id").map(([key, value], index) => (
+                                                                    <div key={index} className="flex items-start gap-2 text-sm text-gray-700">
+                                                                        <span className="font-medium w-40 flex-shrink-0">
+                                                                            {formatLabel(key)}:
+                                                                        </span>
+                                                                        <span>{String(value)}</span>
+                                                                    </div>
+                                                                ))}
+                                                            </TabsContent>
+
+                                                            {/* Tab Content - Eligibility */}
+                                                            <TabsContent value="eligibility" className="space-y-2 mt-4">
+                                                                {Object.entries(card.eligibility).filter(([key]) => key !== "cardId" && key !== "id").map(([key, value], index) => (
+                                                                    <div key={index} className="flex items-start gap-2 text-sm text-gray-700">
+                                                                        <span className="font-medium w-40 flex-shrink-0">
+                                                                            {formatLabel(key)}:
+                                                                        </span>
+                                                                        <span>{String(value)}</span>
+                                                                    </div>
+                                                                ))}
+                                                            </TabsContent>
+
+                                                            {/* Tab Content - Fees & Charges */}
+                                                            <TabsContent value="feesCharges" className="space-y-2 mt-4">
+                                                                {Object.entries(card.feesCharges).filter(([key]) => key !== "cardId" && key !== "id").map(([key, value], index) => (
+                                                                    <div key={index} className="flex items-start gap-2 text-sm text-gray-700">
+                                                                        <span className="font-medium w-40 flex-shrink-0">
+                                                                            {formatLabel(key)}:
+                                                                        </span>
+                                                                        <span>{String(value)}</span>
+                                                                    </div>
+                                                                ))}
+                                                            </TabsContent>
+                                                        </Tabs>
+                                                    </div>
+                                                </CollapsibleContent>
                                             </Collapsible>
+
+
+
                                         </div>
                                     </CardContent>
                                 </Card>
@@ -367,7 +463,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                 <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader className="border-b pb-4">
                         <DialogTitle className="text-xl font-semibold text-center">
-                            Choose your best suitable Credit card
+                            Choose your best suitable {formatEnums(selectedCardDetails[0]?.cardType)}
                         </DialogTitle>
                     </DialogHeader>
 
@@ -383,13 +479,13 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                                 <Image
                                                     height={200}
                                                     width={200}
-                                                    src={card.coverImage || "/placeholder.svg"}
+                                                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${card.cardImage}`}
                                                     alt={`${card.bankName} ${card.cardFeaturesType}`}
                                                     className="w-16 h-10 object-contain"
                                                 />
-                                                <div className="text-sm font-medium">{card.bankName}</div>
+                                                <div className="text-lg font-medium">{formatEnums(card.bankName)}</div>
                                                 <div className="text-xs text-gray-600">
-                                                    {card.cardFeaturesType} {card.cardNetwork}
+                                                    {card.cardFeaturesType}, {card.cardNetwork}
                                                 </div>
                                             </div>
                                         </th>

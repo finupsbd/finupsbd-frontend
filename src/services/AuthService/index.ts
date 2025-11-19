@@ -162,7 +162,38 @@ export const forgotPassword = async (userData: FieldValues) => {
 };
 
 
-export const resetPassword = async (payload: {email: string, newPassword: string}) => {
+
+export const forgotPasswordPhone = async (userData: FieldValues) => {
+    console.log("Sending Data:", JSON.stringify(userData));
+
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/forget-password-phone`, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+        });
+
+        const result = await res.json()
+        return result
+    } catch (error) {
+        console.error("Error registering user:", { error });
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+export const resetPassword = async (payload: {email: string, newPassword: string, phone: string}) => {
 
     console.log(payload)
 

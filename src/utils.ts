@@ -98,10 +98,10 @@ export function cleanFormData<T extends Record<string, any>>(
 
 export function formatEnums(loanType: string) {
   return loanType
-    .toLowerCase()
-    .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+    ?.toLowerCase()
+    ?.split('_')
+    ?.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    ?.join(' ');
 }
 // Example usage:
 // console.log(formatLoanType("PERSONAL_LOAN")); // Output: "Personal Loan"
@@ -145,5 +145,42 @@ export function formatDateString(dobString: string): string {
 
 // console.log(formatDate("2025-06-12T00:00:00.000Z"));
 // // Output: "June 12, 2025"
+
+// ///-----------------------------------------------------------------------------
+
+
+
+
+export function formatLabel(input: string): string {
+  return input
+    // Convert everything to single spaces around separators
+    .replace(/[_\-]+/g, " ")
+    // Break camelCase and PascalCase: "myValueName" → "my Value Name"
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    // Handle capital sequences: "APIResponse" → "API Response"
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
+    // Add space before numbers: "file20Name" → "file 20 Name"
+    .replace(/([a-zA-Z])([0-9])/g, "$1 $2")
+    .replace(/([0-9])([a-zA-Z])/g, "$1 $2")
+    // Remove repeated spaces
+    .replace(/\s+/g, " ")
+    .trim()
+    // Lowercase everything first
+    .toLowerCase()
+    // Capitalize every word
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+// / TESTS
+// console.log(smartLabel("annualFeeWaived"));           // Annual Fee Waived
+// console.log(smartLabel("AnnualFeeWAIVED"));           // Annual Fee Waived
+// console.log(smartLabel("annual_fee_waived"));         // Annual Fee Waived
+// console.log(smartLabel("annual-fee-waived"));         // Annual Fee Waived
+// console.log(smartLabel("ANNUAL_FEE"));                // Annual Fee
+// console.log(smartLabel("APIResponseCode"));           // Api Response Code
+// console.log(smartLabel("file20Name"));                // File 20 Name
+// console.log(smartLabel("mixed-EXAMPLE_hereNOW_22"));  // Mixed Example Here Now 22
+
+
 
 // ///-----------------------------------------------------------------------------

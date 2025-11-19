@@ -23,14 +23,6 @@ function EligibilityNavigation() {
   // const [openCommingSoon, setOpenCommingSoon] = useState(false);
 
 
-  
-  // Send data to backend (Compare Loan)
-  async function handleCompareLoan() {
-    if (loanType == "") {
-      return toast.error("Please Select any loan option for compare Loan");
-    }
-    router.push(`/eligibility?loanType=${loanType}&compare=true`);
-  }
 
   // Send data to backend (Check Eligibility)
   async function handleCheckEligibility() {
@@ -38,7 +30,7 @@ function EligibilityNavigation() {
       return toast.error("Select any loans or cards for eligiblity check");
     }
 
-    if (loanType === "DEBIT_CARD" || loanType === "PREPAID_CARD") {
+    if (loanType === "TRAVEL_CARD" || loanType === "PREPAID_CARD") {
       router.push('/eligibility-cards')
     }
     else {
@@ -77,8 +69,6 @@ function EligibilityNavigation() {
           {/* Loans tab content */}
           <div className="relative m-2 min-h-44 rounded-xl bg-white p-6 pt-10 shadow-[0px_0px_25px_2px_rgba(0,0,0,0.1)] lg:pt-10">
             <div className="flex items-center justify-center">
-
-              { }
               <TabsList className="absolute -top-6 z-10 bg-white px-2 py-6 shadow-[0px_0px_25px_2px_rgba(0,0,0,0.1)] md:space-x-12">
                 <TabsTrigger
                   value="loans"
@@ -107,6 +97,8 @@ function EligibilityNavigation() {
                 </TabsTrigger>
               </TabsList>
             </div>
+
+       {/* Other tabs: Loans, Cards, Investment, Bima/Insurance */}
             <TabsContent value="loans">
 
               <div className="flex flex-col space-y-4">
@@ -150,7 +142,7 @@ function EligibilityNavigation() {
               </div>
             </TabsContent>
 
-            {/* Other tabs: Cards, Investment, Bima/Insurance */}
+     
             <TabsContent value="cards">
               <div className="flex flex-col space-y-4">
                 {/* Radio buttons for loan types */}

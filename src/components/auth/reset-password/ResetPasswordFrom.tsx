@@ -32,7 +32,7 @@ const resetPasswordSchema = z
 
 type ResetForm = z.infer<typeof resetPasswordSchema>;
 
-export default function ResetPasswordForm({token, email}: { token?: string; email?: string }) {
+export default function ResetPasswordForm({token, email, phone}: { token?: string; email?: string, phone: string }) {
 
   const router = useRouter();
 
@@ -45,19 +45,20 @@ export default function ResetPasswordForm({token, email}: { token?: string; emai
 
   const onSubmit = async (data: ResetForm) => {
     setIsSubmitting(true);
-    if (!token || !email) {
-      toast.error("can not reset password without token or email");
-      return;
-    }
+
+    console.log(phone)
 
 
   const payload = {
-            email,
+            email: email ?? "",
             newPassword: data.password,
+            phone,
         }
 
+
+
     try {
-      const res = await resetPassword(payload );
+      const res = await resetPassword(payload);
       
       if (res.success) {
         setIsSubmitting(false);
@@ -65,10 +66,13 @@ export default function ResetPasswordForm({token, email}: { token?: string; emai
         toast.success("Password reset successfully! You can now log in.");
         router.push("/login");
       } else {
+          setIsSubmitting(false);
         throw new Error(res.message || "Unknown error");
+       
       }
     } catch (err: any) {
       toast.error(err.message || "Failed to reset password.");
+       setIsSubmitting(false);
     }
   };
 

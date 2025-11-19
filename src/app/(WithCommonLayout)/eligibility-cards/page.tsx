@@ -45,7 +45,7 @@ const CardsPage = () => {
           const result = await eligibilityCheckData(payload, queryData);
 
           if (result.success) {
-            setSubmissionData(result?.data);
+            setSubmissionData(result.data);
           } else {
             console.log(result)
           }
