@@ -5,27 +5,22 @@ import EligibilityCardDataShow from "@/components/modules/eligibility/cards/Elig
 
 import { FiltersType, TCardsResponse } from "@/components/modules/eligibility/EligibilityTypes";
 import { Button } from "@/components/ui/button";
-import { eligibilityCheckData } from "@/services/eligibilityCheck";
+import { eligibilityCheckData, withoutEligiblityCards } from "@/services/eligibilityCheck";
 import { useEffect, useState } from "react";
 
 
 export interface QueryDataProps {
   tenure: number;
-  
 }
 
 
 
 
-const CardsPage = () => {
+const WithoutEligibilityCardsPage = () => {
   const [submissionData, setSubmissionData] = useState<TCardsResponse>();
   const [isLoading, setIsLoading] = useState(true);
-  const [queryData, setQueryData] = useState<{ tenure: number }>();
   const [queryDataBody, setQueryDataBody] = useState<FiltersType>()
 
-  const handleQueryData = (data: QueryDataProps) => {
-    setQueryData(data);
-  };
 
 
 
@@ -40,10 +35,9 @@ const CardsPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = sessionStorage.getItem("eligibilityData");
-        if (data) {
-          const payload = JSON.parse(data);
-          const result = await eligibilityCheckData(payload, queryDataBody);
+        const query = sessionStorage.getItem("cardType");
+        if (query) {
+          const result = await withoutEligiblityCards(query as any);
 
           if (result.success) {
             setSubmissionData(result.data);
@@ -58,7 +52,7 @@ const CardsPage = () => {
       }
     };
     fetchData();
-  }, [queryData, queryDataBody]);
+  }, [ queryDataBody]);
 
 
   if (isLoading) {
@@ -70,10 +64,12 @@ const CardsPage = () => {
   }
 
 
-  console.log(submissionData)
+  
+
+
 
   return (
-    <div> {submissionData ? (< EligibilityCardDataShow handleQueryDataBody={handleQueryDataBody} submissionData={submissionData}  />) : (
+    <div> {submissionData?.data ? (< EligibilityCardDataShow handleQueryDataBody={handleQueryDataBody} submissionData={submissionData}  />) : (
       <div className="flex h-screen flex-col items-center justify-center py-8">
         <p className="mb-4 text-lg font-semibold text-gray-700">
           You are not eligibility for Cards
@@ -90,4 +86,4 @@ const CardsPage = () => {
   );
 };
 
-export default CardsPage;
+export default WithoutEligibilityCardsPage;

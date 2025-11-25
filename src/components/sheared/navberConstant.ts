@@ -23,11 +23,11 @@ export const navItems: NavItem[] = [
     href: "#",
     icon: Banknote,
     subItems: [
-      { name: "Personal Loan", href: "/under-construction" },
+      { name: "Personal Loan", href: "/modules/general/personal-loan" },
       { name: "Finups Agrim", href: "/under-constructionl" },
-      // { name: "Home Loan", href: "/under-construction" },
-      // { name: "Car Loan", href: "/under-construction" },
-      // { name: "SME Loan", href: "/under-construction" },
+      { name: "Home Loan", href: "/under-construction" },
+      { name: "Car Loan", href: "/under-construction" },
+      { name: "SME Loan", href: "/under-construction" },
     ],
   },
   {
@@ -36,8 +36,8 @@ export const navItems: NavItem[] = [
     icon: FaRegCreditCard,
     subItems: [
       { name: "Credit Cards", href: "/under-construction" },
-      // { name: "Debit Cards", href: "/under-construction" },
-      // { name: "Prepaid Cards", href: "/under-construction" },
+      { name: "Prepaid Cards", href: "/under-construction" },
+      { name: "Travel Cards", href: "/under-construction" },
     ],
   },
   // {
@@ -52,7 +52,7 @@ export const navItems: NavItem[] = [
   // },
   {
     title: "FinUps Islamic",
-    href: "/islamic",
+    href: "/modules/finups-islamic",
     icon: AppWindow,
     subItems: [
       { name: "Islamic Banking", href: "/under-construction" },

@@ -65,11 +65,11 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4">
+    <div className="flex flex-col md:py-20 items-center justify-center bg-gray-50 p-4">
       <div className="flex">
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <Image src={logo} alt="Logo" className="mx-auto mb-4 w-full" />
-        </div>
+        </div> */}
       </div>
       <Card className="w-full max-w-lg rounded-md border-[#D0D5DD] text-secondary shadow-xl">
         <CardHeader>
@@ -192,9 +192,9 @@ export default function LoginForm() {
           </div> */}
         </CardContent>
       </Card>
-      <div className="mt-14">
+      {/* <div className="mt-14">
         <BackHomeLink />
-      </div>
+      </div> */}
     </div>
   );
 }

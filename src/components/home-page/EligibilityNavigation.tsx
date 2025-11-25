@@ -22,7 +22,7 @@ function EligibilityNavigation() {
   const router = useRouter();
   // const [openCommingSoon, setOpenCommingSoon] = useState(false);
 
-
+console.log(loanType)
 
   // Send data to backend (Check Eligibility)
   async function handleCheckEligibility() {
@@ -31,32 +31,13 @@ function EligibilityNavigation() {
     }
 
     if (loanType === "TRAVEL_CARD" || loanType === "PREPAID_CARD") {
-      router.push('/eligibility-cards')
+       sessionStorage.setItem("cardType", loanType)
+      router.push('/withoutEligibility-cards')
     }
     else {
       setOpenEligibility(true);
     }
-    //   return setOpenCommingSoon(true);
-    // }
-
   }
-
-  // useEffect(() => {
-  //   if (
-  //     loanType == "HOME_LOAN" ||
-  //     loanType == "CAR_LOAN" ||
-  //     loanType == "SME_LOAN" ||
-  //     loanType == "DEBIT_CARD" ||
-  //     loanType == "PREPAID_CARD"
-  //   ) {
-  //     setOpenCommingSoon(true);
-  //   }
-
-  //   return () => {
-  //     setOpenCommingSoon(false);
-  //   };
-  // }, [loanType]);
-
 
 
   return (
@@ -123,14 +104,14 @@ function EligibilityNavigation() {
 
                 {/* Action buttons */}
                 <div className="flex w-full flex-col justify-center gap-4 lg:flex-row">
-                  {/* <Button
+                  {/* { loanType == "PREPAID_CARD" && <Button
                     variant="default"
                     className="h-12 w-full lg:w-1/2"
-                    onClick={handleCompareLoan}
+                    onClick={handleCheckEligibility}
                   >
                     Compare Loan
                     <MoveUpRight size={28} strokeWidth={2.5} />
-                  </Button> */}
+                  </Button>} */}
                   <Button
                     className="flex items-center justify-center gap-2 h-12 w-full lg:w-1/3"
                     onClick={handleCheckEligibility}
@@ -141,8 +122,6 @@ function EligibilityNavigation() {
                 </div>
               </div>
             </TabsContent>
-
-     
             <TabsContent value="cards">
               <div className="flex flex-col space-y-4">
                 {/* Radio buttons for loan types */}
@@ -181,7 +160,7 @@ function EligibilityNavigation() {
                     className="flex h-12 w-full items-center justify-center gap-2 lg:w-1/3"
                     onClick={handleCheckEligibility}
                   >
-                    Check Eligibility
+                     {loanType === "PREPAID_CARD" || loanType === "TRAVEL_CARD" ? "Compare Card" : "Check Eligibility"}
                     <MoveUpRight size={20} strokeWidth={2} />
                   </Button>
                 </div>

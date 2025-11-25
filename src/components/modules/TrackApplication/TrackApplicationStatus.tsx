@@ -11,6 +11,7 @@ import { ArrowRight, CheckCircle, Clock, FileText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ApplicationStatusData } from "./TrackingApplicationTypes";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function TrackApplicationStatus({
   applicationStatusData,
@@ -34,10 +35,10 @@ export default function TrackApplicationStatus({
   };
 
   const currentStep = getStatusStep(applicationStatusData.status);
-  console.log(applicationStatusData);
+
 
   return (
-    <div className="bg-gray-50">
+    <div >
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="mb-6 flex flex-wrap items-center text-sm text-gray-500">
@@ -54,7 +55,7 @@ export default function TrackApplicationStatus({
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Main Status Card */}
-          <Card className="border-0 shadow-sm md:col-span-2">
+          <Card className="border-0 shadow-md md:col-span-2">
             <CardHeader className="pb-2">
               <CardTitle className="text-xl">Application Status</CardTitle>
               <CardDescription>
@@ -71,8 +72,8 @@ export default function TrackApplicationStatus({
                   {applicationStatusData.status === "SUBMITTED"
                     ? "under review"
                     : applicationStatusData?.status
-                        .toLowerCase()
-                        .replace("_", " ")}
+                      .toLowerCase()
+                      .replace("_", " ")}
                 </h3>
 
                 {/* Status Tracker */}
@@ -90,11 +91,10 @@ export default function TrackApplicationStatus({
                     {/* Step 1 */}
                     <div className="flex min-w-[70px] flex-col items-center">
                       <div
-                        className={`z-10 flex h-10 w-10 items-center justify-center rounded-full ${
-                          currentStep >= 1
+                        className={`z-10 flex h-10 w-10 items-center justify-center rounded-full ${currentStep >= 1
                             ? "bg-green-500 text-white"
                             : "bg-gray-200 text-gray-500"
-                        }`}
+                          }`}
                       >
                         {currentStep > 1 ? (
                           <CheckCircle className="h-6 w-6" />
@@ -110,11 +110,10 @@ export default function TrackApplicationStatus({
                     {/* Step 2 */}
                     <div className="flex min-w-[70px] flex-col items-center">
                       <div
-                        className={`z-10 flex h-10 w-10 items-center justify-center rounded-full ${
-                          currentStep >= 2
+                        className={`z-10 flex h-10 w-10 items-center justify-center rounded-full ${currentStep >= 2
                             ? "bg-green-500 text-white"
                             : "bg-gray-200 text-gray-500"
-                        }`}
+                          }`}
                       >
                         {currentStep > 2 ? (
                           <CheckCircle className="h-6 w-6" />
@@ -130,11 +129,10 @@ export default function TrackApplicationStatus({
                     {/* Step 3 */}
                     <div className="flex min-w-[70px] flex-col items-center">
                       <div
-                        className={`z-10 flex h-10 w-10 items-center justify-center rounded-full ${
-                          currentStep >= 3
+                        className={`z-10 flex h-10 w-10 items-center justify-center rounded-full ${currentStep >= 3
                             ? "bg-yellow-500 text-white"
                             : "bg-gray-200 text-gray-500"
-                        }`}
+                          }`}
                       >
                         {currentStep > 3 ? (
                           <CheckCircle className="h-6 w-6" />
@@ -148,11 +146,10 @@ export default function TrackApplicationStatus({
                     {/* Step 4 */}
                     <div className="flex min-w-[70px] flex-col items-center">
                       <div
-                        className={`z-10 flex h-10 w-10 items-center justify-center rounded-full ${
-                          currentStep >= 4
+                        className={`z-10 flex h-10 w-10 items-center justify-center rounded-full ${currentStep >= 4
                             ? "bg-green-500 text-white"
                             : "bg-gray-200 text-gray-500"
-                        }`}
+                          }`}
                       >
                         <CheckCircle className="h-6 w-6" />
                       </div>
@@ -165,9 +162,12 @@ export default function TrackApplicationStatus({
               </div>
 
               {applicationStatusData.adminNotes !== "NULL" && (
-                <Badge variant="destructive" className="mb-4 text-left">
-                  NOTE: {applicationStatusData.adminNotes}
-                </Badge>
+                <Alert variant="destructive"   className="mb-4 text-left animate-pulse">
+                  <AlertTitle >Note:</AlertTitle>
+                  <AlertDescription  className="text-base">
+                    {applicationStatusData.adminNotes}
+                  </AlertDescription>
+                </Alert>
               )}
 
               {/* Application Details */}
@@ -254,7 +254,7 @@ export default function TrackApplicationStatus({
           </Card>
 
           {/* Applicant Info Card */}
-          <Card className="border-0 shadow-sm">
+          <Card className="border-0 shadow-md">
             <CardHeader className="pb-2">
               <CardTitle className="text-xl">Applicant Information</CardTitle>
             </CardHeader>
@@ -262,10 +262,7 @@ export default function TrackApplicationStatus({
               <div className="mb-6 flex flex-col items-center">
                 <div className="mb-3 h-20 w-20 overflow-hidden rounded-full">
                   <Image
-                    src={
-                      applicationStatusData?.user?.profile?.avatar ||
-                      "/placeholder.svg"
-                    }
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${applicationStatusData?.user?.profile?.avatar}`}
                     alt="Profile"
                     width={80}
                     height={80}

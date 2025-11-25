@@ -26,14 +26,14 @@ import { usePathname } from "next/navigation";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
   return (
-    <div className="z-50 bg-slate-100">
+    <div className="z-50 ">
       <Sidebar
-        className="w-72 bg-white shadow-lg transition-all dark:bg-gray-900"
+        className="w-72  shadow-lg transition-all "
         collapsible="icon"
         {...props}
       >
         {/* Header */}
-        <SidebarHeader className="border-b border-gray-200 p-4 dark:border-gray-700">
+        <SidebarHeader className="border-b 0 p-4 ">
           <SiteLogo className="w-36" />
         </SidebarHeader>
 

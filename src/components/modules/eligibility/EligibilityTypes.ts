@@ -175,4 +175,6 @@ export type FiltersType = {
     currency: string[];
     network: string[];
     type: string[];
+    page: number;
+    limit: number;
 };

@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation"
 import { CreditCard, FiltersType, TCardsResponse } from "../EligibilityTypes"
 import { formatEnums, formatLabel } from "@/utils"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Link from "next/link"
+import { PaginationComponent } from "@/components/small-component/PaginationComponent"
 
 
 
@@ -24,7 +26,7 @@ type EligibilityCardDataShowProps = {
 
 
 export default function EligibilityCardDataShow({ handleQueryDataBody, submissionData }: EligibilityCardDataShowProps) {
-    const [creditCards, setCreditCards] = useState<CreditCard[]>([])
+    const [cards, setCards] = useState<CreditCard[]>([])
     const [selectedCards, setSelectedCards] = useState<string[]>([])
     const [showComparison, setShowComparison] = useState(false)
     const [sortBy, setSortBy] = useState("Lowest Interest Rate")
@@ -32,16 +34,15 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
         currency: [] as string[],
         network: [] as string[],
         type: [] as string[],
+        page: 0 as number,
+        limit: 0 as number
     })
+
     const [expandedCards, setExpandedCards] = useState<string[]>([])
     const [isExpanded, setIsExpanded] = useState(false);
-
-
+    const [currentPage, setCurrentPage] = useState(1);    // Current page
+    const [totalPages, setTotalPages] = useState(5);     // Backend থেকে আসবে
     const router = useRouter()
-
-
-    console.log(submissionData)
-
 
     // Load data on component mount
 
@@ -50,10 +51,17 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
     }, [filters, handleQueryDataBody])
 
 
+
+    // When new data comes from API
     useEffect(() => {
-        // Replace this with your actual API call
-        setCreditCards(submissionData.data)
-    }, [submissionData])
+        if (submissionData) {
+            setCards(submissionData.data);
+            setCurrentPage(submissionData.pagination.page);
+            setTotalPages(submissionData.pagination.totalPages);
+        }
+    }, [submissionData]);
+
+
 
 
     const handleCardSelection = (cardId: string) => {
@@ -67,6 +75,9 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
         })
     }
 
+
+
+
     const handleCompare = () => {
         setShowComparison(true)
         if (selectedCards.length >= 2) {
@@ -78,23 +89,43 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
         setExpandedCards((prev) => (prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId]))
     }
 
-    const handleFilterChange = (filterType: keyof typeof filters, value: string) => {
-        setFilters((prev) => ({
-            ...prev,
-            [filterType]: prev[filterType].includes(value)
-                ? prev[filterType].filter((item) => item !== value)
-                : [...prev[filterType], value],
-        }))
+
+   const handleFilterChange = (
+  filterType: keyof typeof filters,
+  value: string
+) => {
+  setFilters((prev) => {
+    const current = prev[filterType]
+
+    if (Array.isArray(current)) {
+      return {
+        ...prev,
+        [filterType]: current.includes(value)
+          ? current.filter((item) => item !== value)
+          : [...current, value],
+      }
     }
 
-    const filteredCards = creditCards?.filter((card) => {
+    return {
+      ...prev,
+      [filterType]: [value],
+    }
+  })
+}
+
+
+
+    const filteredCards = cards.filter((card) => {
         if (filters.network.length > 0 && !filters.network.includes(card.cardNetwork)) return false
         if (filters.type.length > 0 && !filters.type.includes(card.cardFeaturesType)) return false
         if (filters.currency.length > 0 && !filters.currency.includes(card.currency)) return false
         return card.isActive
     })
 
-    const selectedCardDetails = creditCards?.filter((card) => selectedCards.includes(card.id))
+
+
+
+    const selectedCardDetails = cards?.filter((card) => selectedCards.includes(card.id))
 
     const getCardFeatures = (card: CreditCard): string[] => {
         const features = card.features
@@ -122,9 +153,9 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
             <div className="bg-white border-b">
                 <div className="container mx-auto px-4 py-4">
                     <div className="flex items-center gap-4 text-sm text-gray-600">
-                        <span>Home</span>
+                        <Link href={'/'}>Home</Link>
                         <span>/</span>
-                        <span className="text-gray-900">Credit Card</span>
+                        <span className="text-gray-900">{formatEnums(cards[0]?.cardType)}</span>
                     </div>
                 </div>
             </div>
@@ -141,7 +172,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                         variant="ghost"
                                         size="sm"
                                         className="text-xs text-blue-600"
-                                        onClick={() => setFilters({ currency: [], network: [], type: [] })}
+                                        onClick={() => setFilters({ currency: [], network: [], type: [], page: 0, limit: 0 })}
                                     >
                                         Reset
                                     </Button>
@@ -243,15 +274,15 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                         </div>
 
                         <div className="mb-4 flex items-center space-x-5">
-                            <span className="text-sm text-gray-600">We found {filteredCards.length} Credit Cards</span>
+                            <span className="text-sm text-gray-600">We found {submissionData?.pagination?.total} {formatEnums(cards[0]?.cardType)} </span>
                             {/* Compare Button */}
-                            {selectedCards.length >= 2 && (
+                            {selectedCards?.length >= 2 && (
                                 <div>
                                     <Button
                                         onClick={handleCompare}
                                         className="text-white px-6 py-3 rounded-lg shadow-lg"
                                     >
-                                        Compare ({selectedCards.length})
+                                        Compare ({selectedCards?.length})
                                     </Button>
 
                                 </div>
@@ -261,7 +292,7 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
 
                         {/*///////////////////////////////////////// Card List //////////////////////////////////////////////////////////////////////*/}
                         <div className="space-y-4">
-                            {filteredCards.map((card) => (
+                            {filteredCards?.map((card) => (
                                 <Card key={card.id} className="overflow-hidden">
                                     <CardContent className="p-0">
                                         <div className="p-6">
@@ -322,16 +353,15 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                                         disabled={!selectedCards.includes(card.id) && selectedCards.length >= 4}
                                                         className={`
                                                             w-full py-2 text-sm font-medium rounded-lg border transition-all
-                                                            ${
-                                                            selectedCards.includes(card.id)
+                                                            ${selectedCards.includes(card.id)
                                                                 ? "bg-green-600 text-white border-green-600"           // When selected
                                                                 : "bg-white text-green-600 border-green-600 hover:bg-green-50"  // Default
                                                             }
                                                             disabled:opacity-40 disabled:cursor-not-allowed
                                                         `}
-                                                        >
+                                                    >
                                                         {selectedCards.includes(card.id) ? "Selected" : "Compare Now"}
-                                                        </Button>
+                                                    </Button>
                                                 </div>
                                             </div>
 
@@ -452,6 +482,11 @@ export default function EligibilityCardDataShow({ handleQueryDataBody, submissio
                                     </CardContent>
                                 </Card>
                             ))}
+                            <PaginationComponent
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                onPageChange={(page) => setFilters(prev => ({ ...prev, page }))}
+                            />
                         </div>
                     </div>
                 </div>

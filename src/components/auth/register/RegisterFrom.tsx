@@ -79,10 +79,10 @@ export default function RegisterForm() {
   // };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4">
-      <div className="mb-8">
+    <div className="flex md:py-8 flex-col items-center justify-center bg-gray-50 p-4">
+      {/* <div className="mb-8">
         <Image src={logo} alt="Logo" className="mx-auto mb-4 w-full" />
-      </div>
+      </div> */}
       <Card className="w-full max-w-lg rounded-md border-[#D0D5DD] text-secondary shadow-gray-200">
         <CardHeader>
           <CardTitle className="text-center text-2xl text-green-950">
@@ -232,14 +232,22 @@ export default function RegisterForm() {
               </Button>
             </form>
           </Form>
-
-
           <div className="mt-4 text-center text-sm text-black">
+            Don’t have an account?{" "}
+            <Link
+              href={`/login?redirectPath=${encodeURIComponent(redirectPath)}`}
+              className="text-green-500 underline"
+            >
+              Login 
+            </Link>
+          </div>
+
+          {/* <div className="mt-4 text-center text-sm text-black">
             Already have an account?{" "}
             <Link href="/login" className="underline hover:text-primary text-green-500">
               Login
             </Link>
-          </div>
+          </div> */}
 
           {/* <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">

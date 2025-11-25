@@ -10,12 +10,13 @@ import { useEffect, useState } from "react";
 
 
 export interface QueryData {
-  amount: number;
-  interestRate: number;
-  searchTerm: string[];
-  sortOrder: string;
-  page: number;
-  sortKey: string;
+  amount?: number;
+  interestRate?: number;
+  searchTerm?: string[];
+  sortOrder?: string;
+  page?: number;
+  limit?: number;
+  sortKey?: string;
 }
 
 
@@ -26,6 +27,7 @@ const EligibilityPage = () => {
   const [queryData, setQueryData] = useState<QueryData>({
     sortKey: "asc",
     page: 1,
+    limit: 3,
     sortOrder: "asc",
     interestRate: 0,
     searchTerm: [],

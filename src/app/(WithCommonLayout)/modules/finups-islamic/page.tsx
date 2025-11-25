@@ -13,7 +13,7 @@ import finups_islamic_banner from "/public/finups-islamic-banner.jpg";
 const FinupsIslamicPage = () => {
   return (
     <div>
-      <EMICalculatorButton />
+      {/* <EMICalculatorButton />
       <div className="mb-6 lg:mb-20">
         <Image src={finups_islamic_banner} alt="Finups Islamic" />
         <div className="relative bottom-[14%] left-0 right-0 z-10 lg:absolute">
@@ -27,7 +27,7 @@ const FinupsIslamicPage = () => {
       <FeaturedArticles />
       <PartnerSlider />
       <Promotion />
-      <FAQSection />
+      <FAQSection /> */}
     </div>
   );
 };
