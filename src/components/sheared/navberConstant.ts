@@ -60,4 +60,12 @@ export const navItems: NavItem[] = [
       { name: "Zakat Calculator", href: "/under-construction" },
     ],
   },
+  {
+    title: "Blogs",
+    href: "/blog/blogs",
+    icon: AppWindow,
+    subItems: [
+      { name: "See Our Blogs", href: "/blog/blogs" },
+    ],
+  },
 ];

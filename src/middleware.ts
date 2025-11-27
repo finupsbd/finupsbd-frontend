@@ -10,6 +10,7 @@ const publicRoutes = [
   "/contact-us",
   "/islamic",
   "/under-construction",
+  "/blog/blogs"
 ];
 
 const roleBasedPrivateRoutes: Record<TUser["role"], RegExp[]> = {
