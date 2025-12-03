@@ -27,15 +27,15 @@ export const navList = {
     ],
     myItems: [
         {
-            title: "My Loans",
+            title: "Applications",
             url: "#",
             icon: SquareTerminal,
             isActive: false,
             items: [
-                {
-                    title: "Loan Application",
-                    url: "/user/loan-application",
-                },
+                // {
+                //     title: "Loan Application",
+                //     url: "/user/loan-application",
+                // },
                 {
                     title: "My Applications",
                     url: "/user/my-application/my-application-loan",

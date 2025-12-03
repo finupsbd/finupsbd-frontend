@@ -1,4 +1,5 @@
 
+
 "use server"
 import { cookies } from "next/headers";
 
@@ -40,12 +41,6 @@ export const postBlog = async (payload: any) => {
   }
 };
 
-
-
-
-
-
-
 export const getAllBlogs = async () => {
 // payload: any
   try {
@@ -63,9 +58,6 @@ export const getAllBlogs = async () => {
     };
   }
 };
-
-
-
 
 export const getSingleBlog = async (id: string) => {
 // payload: any
@@ -85,3 +77,39 @@ export const getSingleBlog = async (id: string) => {
   }
 };
 
+
+
+
+
+
+export const createComment = async (payload: {blogId: string, content: string}) => {
+
+  const token = (await cookies()).get("accessToken")?.value;
+  if (!token) {
+    throw new Error("No authentication token found in cookies");
+  }
+  try {
+    const res = await fetch(`${url}/blogs/comment`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // fix capitalization too
+          "Authorization": `Bearer ${token}`
+        },
+
+       body: JSON.stringify(payload),
+      },
+    );
+
+    const jsonData = await res.json();
+    console.log(jsonData)
+    return jsonData;
+  } catch (error) {
+    console.error("Error forgot application api call:", error);
+    return {
+      success: false,
+      message:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    };
+  }
+};

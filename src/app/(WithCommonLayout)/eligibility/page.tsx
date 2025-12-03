@@ -6,7 +6,7 @@ import { TEligibilityCheckDataShow } from "@/components/modules/eligibility/Elig
 import { Button } from "@/components/ui/button";
 import { eligibilityCheckData } from "@/services/eligibilityCheck";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 export interface QueryData {
@@ -37,6 +37,8 @@ const EligibilityPage = () => {
 
 
 
+
+
   const handleQueryData = (data: QueryData) => {
     setQueryData(data);
   };
@@ -44,6 +46,7 @@ const EligibilityPage = () => {
 
 
   useEffect(() => {
+
     const fetchData = async () => {
       try {
         const data = sessionStorage.getItem("eligibilityData");

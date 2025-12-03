@@ -5,7 +5,7 @@ import EligibilityInstantLoanDataShow from "@/components/modules/eligibility/ins
 import RateLimitModal from "@/components/small-component/RateLimitModal";
 import { Button } from "@/components/ui/button";
 import { eligibilityCheckData } from "@/services/eligibilityCheck";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 export interface QueryDataProps {

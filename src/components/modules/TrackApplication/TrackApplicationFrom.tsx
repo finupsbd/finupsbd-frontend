@@ -31,7 +31,7 @@ export default function TrackApplicationForm() {
     ApplicationStatusData | null | undefined
   >();
 
-  console.log(applicationStatusData);
+
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

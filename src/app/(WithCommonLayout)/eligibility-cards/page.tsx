@@ -6,7 +6,7 @@ import EligibilityCardDataShow from "@/components/modules/eligibility/cards/Elig
 import { FiltersType, TCardsResponse } from "@/components/modules/eligibility/EligibilityTypes";
 import { Button } from "@/components/ui/button";
 import { eligibilityCheckData } from "@/services/eligibilityCheck";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 export interface QueryDataProps {
@@ -38,6 +38,7 @@ const CardsPage = () => {
 
 
   useEffect(() => {
+
     const fetchData = async () => {
       try {
         const data = sessionStorage.getItem("eligibilityData");

@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { getSingleBlog } from "@/services/blog"
+import Comments from "@/components/blogs/Comments"
 
 export default async function BlogPost(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params
@@ -15,6 +16,12 @@ export default async function BlogPost(props: { params: Promise<{ id: string }> 
 
   console.log(data)
 
+
+
+
+
+
+  
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-4 py-8">
@@ -67,6 +74,7 @@ export default async function BlogPost(props: { params: Promise<{ id: string }> 
             dangerouslySetInnerHTML={{ __html: data.content }}
           />
         </article>
+        <Comments comments={data?.comments} cId={data?.id} />
       </div>
     </div>
   )

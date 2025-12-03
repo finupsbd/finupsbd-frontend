@@ -66,7 +66,7 @@ export default function UserProfile() {
     }, 2000);
   }; 
 
-  console.log("user Profile data", user)
+
 
   const toggleSensitiveInfo = () => {
     setHideSensitiveInfo(!hideSensitiveInfo);

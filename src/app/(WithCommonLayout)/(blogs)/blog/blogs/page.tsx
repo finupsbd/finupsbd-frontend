@@ -16,39 +16,15 @@ import { getAllBlogs } from "@/services/blog"
 import { TBlogApiResponse } from "@/types"
 import Loading from "./loading"
 
-// Example fetched posts (Replace with API)
-const blogPosts = [
-  {
-    id: "1",
-    title: "Understanding Personal Loan Process in Bangladesh",
-    slug: "understanding-personal-loan",
-    excerpt: "Learn how to apply for a personal loan and improve your approval chances.",
-    category: "PERSONAL_LOAN",
-    readingTime: 4,
-    publishedDate: "2024-10-10",
-    thumbnail: "/placeholder.svg?height=200&width=300",
-  },
-  {
-    id: "2",
-    title: "Credit Score Factors Every Bangladeshi Must Know",
-    slug: "credit-score-factors",
-    excerpt: "A detailed guide explaining credit score calculation and improvement tips.",
-    category: "CREDIT_SCORE",
-    readingTime: 6,
-    publishedDate: "2024-09-18",
-    thumbnail: "/placeholder.svg?height=200&width=300",
-  },
-  {
-    id: "3",
-    title: "FinTech Trends to Watch in 2025",
-    slug: "fintech-trends-2025",
-    excerpt: "Latest FinTech innovations shaping the financial sector of Bangladesh.",
-    category: "FINTECH_NEWS",
-    readingTime: 5,
-    publishedDate: "2024-11-01",
-    thumbnail: "/placeholder.svg?height=200&width=300",
-  },
-]
+
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select"
+
 
 // Prisma Category Enum (Frontend list)
 const categoryList = [
@@ -99,23 +75,18 @@ export default function BlogPage() {
   const [pagination, setPagination] = useState()
 
 
-useEffect(() => {
-  const res = async () =>{
-    setLoading(true)
+  useEffect(() => {
+    const res = async () => {
+      setLoading(true)
       const res = await getAllBlogs()
-      if(res.success){
+      if (res.success) {
         setBlogs(res?.data)
         setPagination(res?.pagination)
       }
       setLoading(false)
-  }
-res()
-}, [])
-
-
-console.log(blogs)
-
-
+    }
+    res()
+  }, [])
 
 
   return (
@@ -133,7 +104,7 @@ console.log(blogs)
             <div className="relative max-w-lg mx-auto mt-6">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
               <Input
-                placeholder="Search articles..."
+                placeholder="Search Blogs..."
                 className="pl-10"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -149,30 +120,26 @@ console.log(blogs)
 
         {/* Filters */}
         <div className="flex flex-col lg:flex-row justify-between items-center gap-4 mb-8">
-          <div className="relative">
-            {/* Top Fade Shadow */}
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-slate-50 to-transparent z-10" />
+          <div className="space-y-2">
+            <span>Select Categori</span>
+            <Select value={activeCategory} onValueChange={setActiveCategory} >
 
-            <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto p-3 rounded-2xl border bg-slate-50 shadow-inner">
-              {categoryList.map((cat) => (
-                <Button
-                  key={cat}
-                  variant={activeCategory === cat ? "default" : "secondary"}
-                  className={`rounded-full px-4 py-2 text-sm transition-all
-          ${activeCategory === cat
-                      ? "shadow-md scale-105"
-                      : "bg-white text-slate-600 hover:bg-slate-100"
-                    }
-        `}
-                  onClick={() => setActiveCategory(cat)}
-                >
-                  {formatEnums(cat)}
-                </Button>
-              ))}
-            </div>
+              <SelectTrigger className="w-60 max-w-sm rounded-2xl bg-slate-50">
+                <SelectValue placeholder="Select Category" />
+              </SelectTrigger>
 
-            {/* Bottom Fade Shadow */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-slate-50 to-transparent z-10" />
+              <SelectContent className="max-h-72">
+                {categoryList.map((cat) => (
+                  <SelectItem
+                    key={cat}
+                    value={cat}
+                    className="cursor-pointer"
+                  >
+                    {formatEnums(cat)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <DropdownMenu>
@@ -193,11 +160,11 @@ console.log(blogs)
         </div>
 
         {/* Blog Grid */}
-       { blogs ?  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {blogs ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {blogs?.data?.map((post) => (
             <Card key={post.id} className="group hover:shadow-xl transition p-0 overflow-hidden">
               <Image
-               src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${post.bannerImage}`}
+                src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${post.bannerImage}`}
                 alt={post.title}
                 width={600}
                 height={300}
@@ -221,8 +188,8 @@ console.log(blogs)
               </CardContent>
             </Card>
           ))}
-        </div> : <Loader2/>}
-       
+        </div> : <Loader2 />}
+
         {/* No results */}
         {blogs?.data?.length === 0 && (
           <div className="text-center py-16">
