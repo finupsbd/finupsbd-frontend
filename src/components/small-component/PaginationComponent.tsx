@@ -1,5 +1,18 @@
 "use client"
 
+
+/////exaple usige this pagination component /////
+
+//  {/* Pagination Component Call */}
+//       <PaginationComponent
+//         currentPage={currentPage}
+//         totalPages={totalPages}
+//         onPageChange={loadUsers}
+//       />
+  // const [currentPage, setCurrentPage] = useState(1);    // Current page
+  // const [totalPages, setTotalPages] = useState(10);     // Backend থেকে আসবে
+
+
 import {
   Pagination,
   PaginationContent,
@@ -41,7 +54,7 @@ export function PaginationComponent({
   const pages = getPageNumbers()
 
   return (
-    <Pagination className="w-full">
+    <Pagination className="w-full mt-5 ">
       {/* Align pagination to the RIGHT */}
       <PaginationContent className="justify-end w-full">
 
@@ -83,14 +96,4 @@ export function PaginationComponent({
 }
 
 
-
-
-//  {/* Pagination Component Call */}
-//       <PaginationComponent
-//         currentPage={currentPage}
-//         totalPages={totalPages}
-//         onPageChange={loadUsers}
-//       />
-  // const [currentPage, setCurrentPage] = useState(1);    // Current page
-  // const [totalPages, setTotalPages] = useState(10);     // Backend থেকে আসবে
 

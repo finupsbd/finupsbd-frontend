@@ -29,7 +29,7 @@ export const postBlog = async (payload: any) => {
     );
 
     const jsonData = await res.json();
-    // console.log(jsonData)
+    console.log(jsonData)
     return jsonData;
   } catch (error) {
     console.error("Error forgot application api call:", error);
@@ -41,10 +41,22 @@ export const postBlog = async (payload: any) => {
   }
 };
 
-export const getAllBlogs = async () => {
+export const getAllBlogs = async ({
+  page = 1,
+  limit = 10,
+  category,
+  search,
+  sort,
+}: {
+  page?: number
+  limit?: number
+  category?: string
+  search?: string
+  sort?: string
+}) => {
 // payload: any
   try {
-    const res = await fetch(`${url}/blogs/all-blogs`);
+    const res = await fetch(`${url}/blogs/all-blogs?page=${page}&limit=${limit}&category=${category}&searchTerm=${search}&sort=${sort}`);
 
     const jsonData = await res.json();
     console.log(jsonData)

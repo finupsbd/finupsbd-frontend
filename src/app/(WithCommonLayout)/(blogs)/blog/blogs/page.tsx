@@ -24,6 +24,18 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select"
+import { PaginationComponent } from "@/components/small-component/PaginationComponent"
+
+
+
+
+type TPagination = {
+  total: number;      // total items
+  page: number;       // current page
+  limit: number;      // items per page
+  totalPages: number; // total page count
+};
+
 
 
 // Prisma Category Enum (Frontend list)
@@ -67,26 +79,35 @@ const sortOptions = ["Most recent", "Oldest first", "Alphabetical", "Reading tim
 
 export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("")
-  const [activeCategory, setActiveCategory] = useState("View all")
+  const [activeCategory, setActiveCategory] = useState()
   const [sortBy, setSortBy] = useState("Most recent")
   const { user } = useUser()
   const [loading, setLoading] = useState(false)
   const [blogs, setBlogs] = useState<TBlogApiResponse>()
-  const [pagination, setPagination] = useState()
+  const [pagination, setPagination] = useState<TPagination>()
+  const [currentPage, setCurrentPage] = useState(1)
+
+  console.log(pagination)
+
+
 
 
   useEffect(() => {
     const res = async () => {
       setLoading(true)
-      const res = await getAllBlogs()
+      const res = await getAllBlogs({ page: currentPage, limit: 9, category: activeCategory === "PERSONAL_LOAN" ? undefined : activeCategory, search: searchQuery, sort: sortBy })
       if (res.success) {
         setBlogs(res?.data)
-        setPagination(res?.pagination)
+        setPagination(res?.data?.pagination)
       }
       setLoading(false)
     }
     res()
-  }, [])
+  }, [currentPage, activeCategory, searchQuery, sortBy])
+
+
+
+
 
 
   return (
@@ -122,7 +143,7 @@ export default function BlogPage() {
         <div className="flex flex-col lg:flex-row justify-between items-center gap-4 mb-8">
           <div className="space-y-2">
             <span>Select Categori</span>
-            <Select value={activeCategory} onValueChange={setActiveCategory} >
+            <Select value={activeCategory}  >
 
               <SelectTrigger className="w-60 max-w-sm rounded-2xl bg-slate-50">
                 <SelectValue placeholder="Select Category" />
@@ -194,12 +215,18 @@ export default function BlogPage() {
         {blogs?.data?.length === 0 && (
           <div className="text-center py-16">
             <p className="text-gray-500 text-lg">No posts found</p>
-            <Button onClick={() => { setSearchQuery(""); setActiveCategory("View all") }} className="mt-3">
+            <Button onClick={() => { setSearchQuery("") }} className="mt-3">
               Reset Filters
             </Button>
           </div>
         )}
+        <PaginationComponent
+          currentPage={currentPage}
+          totalPages={pagination?.totalPages || 1}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </div>
+
     </div>
   )
 }

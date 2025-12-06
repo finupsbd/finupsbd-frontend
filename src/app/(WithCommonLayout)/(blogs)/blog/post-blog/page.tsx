@@ -93,7 +93,7 @@ export default function BlogPostForm() {
     console.log(fileblog)
     if (!fileblog) {
       toast.error("Please upload image")
-       setIsLoading(false)
+      setIsLoading(false)
     }
 
 
@@ -107,11 +107,13 @@ export default function BlogPostForm() {
 
       if (res.success) {
         toast.success("Blog created successfully! your blogs is under review")
-         form.reset()
-         setIsLoading(false)
-        
+        form.reset()
+        setIsLoading(false)
+      } else {
+        toast.error(res.message || "Failed to create blog")
+        console.log()
+        setIsLoading(false)
       }
-      console.log("Success:", res)
     } catch (error: any) {
       toast.error(error.response?.data?.error || "Failed to create blog")
       setIsLoading(false)
@@ -132,12 +134,12 @@ export default function BlogPostForm() {
     <Form {...form}>
 
       <form
-      
+
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6 p-6 bg-white border border-gray-300 rounded-xl shadow-lg max-w-5xl mx-auto my-20"
       >
         <h2 className="text-2xl font-bold">Create New Blog Post</h2>
-      {/* <div>
+        {/* <div>
         <Link className="underline text-blue-700" href={"/blog/blogs"}>Back Blog page</Link>
       </div> */}
         {/* TITLE */}
@@ -156,7 +158,7 @@ export default function BlogPostForm() {
         />
 
         {/* SLUG */}
-        <FormField
+        {/* <FormField
           control={form.control}
           name="slug"
           render={({ field }) => (
@@ -165,9 +167,10 @@ export default function BlogPostForm() {
               <FormControl>
                 <Input placeholder="custom-slug..." {...field} />
               </FormControl>
+                <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         {/* EXCERPT */}
         <FormField
@@ -179,6 +182,7 @@ export default function BlogPostForm() {
               <FormControl>
                 <Textarea placeholder="Short summary..." {...field} />
               </FormControl>
+                <FormMessage />
             </FormItem>
           )}
         />
