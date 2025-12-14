@@ -62,7 +62,7 @@ export default function WhatsAppFloatButton({
             />
           </a>
         </TooltipTrigger>
-        <TooltipContent side="right" className="bg-foreground text-background">
+        <TooltipContent side="right" className="bg-foreground text-background z-50">
           WhatsApp
         </TooltipContent>
       </Tooltip>

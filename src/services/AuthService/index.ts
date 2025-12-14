@@ -43,8 +43,6 @@ export const registerUser = async (userData: FieldValues) => {
 
 
 
-
-
 export const loginUser = async (userData: FieldValues) => {
     console.log("Sending Data:", JSON.stringify(userData));
 
