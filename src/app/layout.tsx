@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import React from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
+import FinupsThemeSync from "@/components/sheared/FinupsThemeSync";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ export default function RootLayout({
       <html lang="en"  data-arp="" >
         <body className={`${inter.variable} antialiased`}>
           <Toaster position="top-center" richColors />
+           <FinupsThemeSync />
           <TooltipProvider>{children}</TooltipProvider>
         </body>
       </html>

@@ -7,6 +7,84 @@ body {
 }
 
 @layer base {
+  :root[data-finups="GENERAL"] {
+    --background:  0 0% 100%;
+    --foreground:  240 10% 3.9%;
+    --card:  0 0% 100%;
+    --card-foreground:  240 10% 3.9%;
+    --popover:  0 0% 100%;
+    --popover-foreground:  240 10% 3.9%;
+    --primary: 109 87% 31%;
+    --primary-foreground: 0 0% 100%;
+    --secondary:  240 4.8% 95.9%;
+    --secondary-foreground:  240 5.9% 10%;
+    --muted:  240 4.8% 95.9%;
+    --muted-foreground:  240 3.8% 46.1%;
+    --accent:  240 4.8% 95.9%;
+    --accent-foreground:  240 5.9% 10%;
+    --destructive:  0 84.2% 60.2%;
+    --destructive-foreground:  0 0% 98%;
+    --border:  240 5.9% 90%;
+    --input:  240 5.9% 90%;
+    --ring:  142.1 76.2% 36.3%;
+    --radius: 0.5rem;
+    --chart-1:  12 76% 61%;
+    --chart-2:  173 58% 39%;
+    --chart-3:  197 37% 24%;
+    --chart-4:  43 74% 66%;
+    --chart-5:  27 87% 67%;
+  }
+
+  :root[data-finups="ISLAMIC"] {
+    /* Base */
+  --background: 0 0% 100%;
+  --foreground: 180 20% 12%;
+
+  /* Cards & Popovers */
+  --card: 0 0% 100%;
+  --card-foreground: 180 20% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 180 20% 12%;
+
+  /* PRIMARY → Deep Teal */
+  --primary: 180 38% 28%;
+  --primary-foreground: 0 0% 98%;
+
+  /* Secondary → Islamic Green */
+  --secondary: 152 55% 90%;
+  --secondary-foreground: 152 45% 22%;
+
+  /* Accent → Soft Gold */
+  --accent: 42 65% 55%;
+  --accent-foreground: 42 40% 15%;
+
+  /* Muted */
+  --muted: 180 20% 95%;
+  --muted-foreground: 180 12% 42%;
+
+  /* Destructive */
+  --destructive: 0 75% 55%;
+  --destructive-foreground: 0 0% 98%;
+
+  /* Borders & Inputs */
+  --border: 180 20% 88%;
+  --input: 180 20% 88%;
+  --ring: 180 38% 28%;
+
+  /* Radius */
+  --radius: 0.6rem;
+
+  /* Charts */
+  --chart-1: 180 38% 28%; /* deep teal */
+  --chart-2: 152 50% 40%; /* green */
+  --chart-3: 42 65% 55%;  /* gold */
+  --chart-4: 200 35% 45%;
+  --chart-5: 95 40% 45%;
+  }
+}
+
+
+@layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 109 5% 0%;
@@ -72,6 +150,7 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-white font-display text-foreground;
   }
@@ -81,6 +160,7 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background font-display text-foreground;
   }
@@ -89,6 +169,7 @@ body {
 .container-xl {
   @apply mx-auto max-w-[1744px];
 }
+
 .container-lg {
   @apply mx-auto max-w-[1590px] px-4;
 }
@@ -100,12 +181,13 @@ body {
 .container-sm {
   @apply mx-auto max-w-[960px] px-4;
 }
+
 .page-wrapper {
   @apply max-w-[1920px] py-8 lg:py-12 xl:py-16;
 }
 
-.swiper-pagination {
-}
+.swiper-pagination {}
+
 .swiper-pagination-bullet {
   @apply border-[2px] !bg-green-950 p-[6px] !opacity-100;
 }
@@ -118,9 +200,11 @@ body {
   .swiper-wrapper {
     @apply py-10;
   }
+
   .swiper-pagination {
     bottom: 0px !important;
   }
+
   .swiper-pagination-bullet {
     @apply border-[1px] !bg-[#7BE963] p-[4px] !opacity-100;
   }
@@ -128,8 +212,10 @@ body {
   .swiper-pagination-bullet.swiper-pagination-bullet-active {
     @apply !bg-white;
   }
+
   .swiper-button-prev {
     @apply !-bottom-3 top-auto !z-50 block text-center md:hidden;
+
     &::after {
       @apply text-3xl text-green-500;
     }
@@ -137,6 +223,7 @@ body {
 
   .swiper-button-next {
     @apply !-bottom-3 top-auto !z-50 block text-center md:hidden;
+
     &::after {
       @apply text-3xl text-green-500;
     }
@@ -146,36 +233,48 @@ body {
 .fin-accordion {
   &.with-numbers {
     @apply w-full;
+
     .accordion-item {
       @apply px-7 py-3 [&[data-state=open]]:bg-[#F9FAFB];
+
       .accordion-title {
         @apply text-xl font-semibold text-green-950 no-underline [&[data-state=open]>div>span.number]:bg-[#7BE963];
+
         svg {
           @apply h-6 w-6 stroke-green-950 stroke-[2.5];
         }
+
         .number {
           @apply block h-10 w-14 rounded-full bg-[#EAECF0] text-center leading-[40px] text-[#344054] lg:w-10;
         }
       }
+
       .accordion-content {
         @apply pl-14 text-base leading-7 text-tertiary-primary lg:text-[18px];
       }
+
       @apply border-none;
     }
   }
+
   &.default-accordion {
     @apply w-full;
+
     .accordion-item {
       @apply rounded-xl px-7 py-1 [&[data-state=open]]:bg-[#F7FFF5];
+
       .accordion-title {
         @apply text-xl font-semibold text-green-950 no-underline [&[data-state=open]>div>span.number]:bg-[#7BE963];
+
         svg {
           @apply h-8 w-8 rounded-full bg-[#7BE963] stroke-[#23920A] stroke-[1.2] p-[6px] lg:h-10 lg:w-10 lg:p-[6px];
         }
       }
+
       .accordion-content {
         @apply text-base leading-7 text-tertiary-primary lg:text-[18px];
       }
+
       @apply mb-6 border border-[#F2F4F7];
     }
   }
@@ -184,9 +283,11 @@ body {
 .CollapsibleContent {
   overflow: hidden;
 }
+
 .CollapsibleContent[data-state="open"] {
   animation: slideDown 300ms ease-out;
 }
+
 .CollapsibleContent[data-state="closed"] {
   animation: slideUp 300ms ease-out;
 }
@@ -195,6 +296,7 @@ body {
   from {
     height: 0;
   }
+
   to {
     height: var(--radix-collapsible-content-height);
   }
@@ -204,16 +306,19 @@ body {
   from {
     height: var(--radix-collapsible-content-height);
   }
+
   to {
     height: 0;
   }
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     opacity: 0.6;
   }
+
   50% {
     opacity: 1;
   }
@@ -227,6 +332,7 @@ body {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -241,19 +347,22 @@ body {
     ol {
       li {
         @apply marker:text-xl marker:font-semibold marker:lg:text-2xl;
+
         h2 {
           @apply mb-2 text-xl font-semibold lg:text-2xl lg:leading-[40px];
         }
-        p {
-        }
+
+        p {}
+
         ul {
           li {
             @apply marker:text-lg marker:font-semibold marker:lg:text-xl;
+
             h2 {
               @apply mb-1 text-lg font-semibold lg:text-xl;
             }
-            p {
-            }
+
+            p {}
           }
         }
       }
@@ -266,7 +375,7 @@ body {
     h2 {
       @apply mb-2 text-xl font-semibold lg:text-2xl lg:leading-[40px];
     }
-    p {
-    }
+
+    p {}
   }
 }

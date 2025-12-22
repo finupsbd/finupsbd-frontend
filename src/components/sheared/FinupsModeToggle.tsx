@@ -17,17 +17,23 @@ export default function FinupsModeToggle() {
 
   return (
     <div className="flex items-center gap-4 rounded-xl border px-2 w-fit text-sm">
-      <span className={!isGeneral ? "font-semibold" : "text-muted-foreground"}>
+      <span className={isGeneral ? "font-semibold" : "text-muted-foreground"}>
         Finups General
       </span>
+
 
       <Switch
         id="finups-mode"
         checked={!isGeneral}
         onCheckedChange={handleToggle}
+        className={
+          !isGeneral
+            ? "data-[state=checked]:bg-primary"
+            : "data-[state=unchecked]:bg-primary"
+        }
       />
 
-      <span className={isGeneral ? "font-semibold" : "text-muted-foreground"}>
+      <span className={!isGeneral ? "font-semibold" : "text-muted-foreground"}>
         Finups Islamic
       </span>
     </div>
