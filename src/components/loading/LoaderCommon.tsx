@@ -33,7 +33,7 @@ export default function LoaderCommon({
 
   return (
     <div 
-      className="flex min-h-screen items-center justify-center bg-gradient-to-br from-green-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 transition-all duration-300"
+      className="flex min-h-screen items-center justify-center bg-gradient-to-br  dark:from-gray-900 dark:to-gray-800 transition-all duration-300"
       role="status"
       aria-label="Loading financial data"
     >

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ===== CONFIG =====
-APP_NAME="finups-frontend"
+APP_NAME="finups-client"
 APP_DIR="/media/algorify-labs-ltd/Server/projects/finupsbd-frontend" 
 PORT=3000
 NODE_ENV="production"

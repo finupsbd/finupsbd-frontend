@@ -7,33 +7,38 @@ import MobileHeader from "./Navbar/Mobile/MobileHeader";
 import ProfileMenu from "./Navbar/ProfileMenu";
 import SiteLogo from "./SiteLogo";
 import { NotificationDropdown, NotificationType } from "./NotificationDropdown";
+import FinupsIslamicButton from "./FinupsIslamicButton";
+import { useFinupsMode } from "@/store/finups/useFinupsMode";
+import FinupsModeToggle from "./FinupsModeToggle";
 
 
 // Import NotificationType from NotificationDropdown or its type definition
 
-const mockNotifications = [
-  {
-    id: "1",
-    title: "Loan Approved!",
-    message: "Your loan for BDT 1,00,000 has been approved.",
-    type: "SUCCESS" as NotificationType,
-    actionUrl: "/loans/12345",
-    isRead: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: "2",
-    title: "System Maintenance",
-    message: "Downtime scheduled for Sunday, 2-4AM.",
-    type: "INFO" as NotificationType,
+// const mockNotifications = [
+//   {
+//     id: "1",
+//     title: "Loan Approved!",
+//     message: "Your loan for BDT 1,00,000 has been approved.",
+//     type: "SUCCESS" as NotificationType,
+//     actionUrl: "/loans/12345",
+//     isRead: true,
+//     createdAt: new Date().toISOString(),
+//   },
+//   {
+//     id: "2",
+//     title: "System Maintenance",
+//     message: "Downtime scheduled for Sunday, 2-4AM.",
+//     type: "INFO" as NotificationType,
     
-    isRead: false,
-    createdAt: new Date().toISOString(),
-  },
-];
+//     isRead: false,
+//     createdAt: new Date().toISOString(),
+//   },
+// ];
 
 
 const Header = ({ hasSidebar = true }) => {
+
+
   return (
     <header
       className={cn(
@@ -54,11 +59,13 @@ const Header = ({ hasSidebar = true }) => {
                 <div className="w-8/12">
                   <MenuItems hasSidebar={hasSidebar} />
                 </div>
-                <div className="w-4/12">
+                <div className="">
                   <div className="flex items-center justify-center gap-4">
                     {/* <NotificationDropdown
                       notifications={mockNotifications}
                     /> */}
+                    {/* <FinupsIslamicButton/> */}
+                    <FinupsModeToggle/>
                     <Link href="/track-application/track-application-public" className="!text-xl">
                       <Button variant="outline" className="h-10">
                         <Globe className="h-14 w-14 text-6xl" />

@@ -14,7 +14,7 @@ const HomePage = () => {
       <EMICalculatorButton />
       <HomeSlider />
       <Services />
-      <WhatsAppFloatButton phone="+8801711356235"/>
+      <WhatsAppFloatButton phone="+8801711356235" className="z-50"/>
       <FinancialProducts />
       <HowWeWorks />
       <FeaturedArticles />

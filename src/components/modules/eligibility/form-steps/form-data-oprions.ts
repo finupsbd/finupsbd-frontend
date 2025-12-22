@@ -6,6 +6,14 @@ export const loanTypes = [
   { label: "SME Loan", value: "SME_LOAN" },
 ];
 
+export const loanTypesIslamic = [
+  { label: "HPSM-Personal", value: "PERSONAL_LOAN" },
+  { label: "HPSM-Real Estate", value: "HOME_LOAN" },
+  { label: "HPSM-Car", value: "CAR_LOAN" },
+  { label: "Bai Muajjal", value: "SME_LOAN" },
+];
+
+
 export const cards = [
   { label: "Credit Card", value: "CREDIT_CARD" },
   { label: "Travel Card", value: "TRAVEL_CARD" },

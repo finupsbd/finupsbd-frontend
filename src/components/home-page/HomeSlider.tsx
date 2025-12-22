@@ -14,6 +14,7 @@ import slide3 from "@/assets/images/slider/slide-3.jpg";
 import slide4 from "@/assets/images/slider/slide-4.jpg";
 import slide5 from "@/assets/images/slider/slide-5.jpg";
 import EligibilityNavigation from "./EligibilityNavigation";
+import { usePathname } from "next/navigation";
 
 export const sliderData = [
   {
@@ -44,6 +45,11 @@ export const sliderData = [
 ];
 
 const HomeSlider = () => {
+
+  const path = usePathname()
+
+  console.log(path)
+
   return (
     <section className="relative mb-6 w-full lg:mb-20">
       <Swiper
@@ -61,7 +67,7 @@ const HomeSlider = () => {
         ))}
       </Swiper>
       <div className="relative left-0 right-0 z-10 lg:absolute lg:-bottom-[45%] xl:-bottom-[40%] 2xl:-bottom-[20%]">
-        <EligibilityNavigation />
+        <EligibilityNavigation path={path} />
       </div>
     </section>
   );

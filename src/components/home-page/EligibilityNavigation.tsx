@@ -9,13 +9,18 @@ import { MoveUpRight } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import EligibilityCheckModal from "../modules/eligibility/EligibilityCheckModal";
-import { cards, loanTypes } from "../modules/eligibility/form-steps/form-data-oprions";
+import { cards, loanTypes, loanTypesIslamic } from "../modules/eligibility/form-steps/form-data-oprions";
+import { useFinupsMode } from "@/store/finups/useFinupsMode";
 
 
 
 
 
-function EligibilityNavigation() {
+function EligibilityNavigation({path}: {path: string}) {
+
+  const {mode} = useFinupsMode()
+
+  console.log(mode)
   // Track the selected loan type
   const [loanType, setLoanType] = useState("");
   const [openEligibility, setOpenEligibility] = useState(false);
@@ -89,7 +94,20 @@ console.log(loanType)
                   onValueChange={setLoanType} // track changes
                   className="gird mb-4 mt-2 flex-none grid-cols-2 justify-center gap-6 lg:flex lg:flex-row lg:items-center"
                 >
-                  {loanTypes?.map((type) => (
+                  { path === "/finups-islamic" &&   loanTypesIslamic?.map((type) => (
+                    <div
+                      key={type.value}
+                      className="flex items-center space-x-2"
+                    >
+                      <RadioGroupItem id={type.value} value={type.value} />
+                      <Label className="cursor-pointer" htmlFor={type.value}>
+                        {type.label}
+                      </Label>
+                    </div>
+                  ))
+                  
+                  }
+                  {path === "/" && loanTypes?.map((type) => (
                     <div
                       key={type.value}
                       className="flex items-center space-x-2"

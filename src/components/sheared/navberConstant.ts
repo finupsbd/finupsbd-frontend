@@ -17,6 +17,8 @@ interface NavItem {
   subItems?: SubItem[];
 }
 
+
+
 export const navItems: NavItem[] = [
   {
     title: "Loans",
@@ -52,12 +54,12 @@ export const navItems: NavItem[] = [
   // },
   {
     title: "FinUps Islamic",
-    href: "/modules/finups-islamic",
+    href: "/finups-islamic",
     icon: AppWindow,
     subItems: [
-      { name: "Islamic Banking", href: "/under-construction" },
+      { name: "Islamic Banking", href: "/finups-islamic" },
       { name: "Shariah-Compliant Loans", href: "/under-construction" },
-      { name: "Zakat Calculator", href: "/under-construction" },
+      { name: "Zakat Calculator", href: "/finups-islamic/tools/zakat-calculator" },
     ],
   },
   {
@@ -69,3 +71,31 @@ export const navItems: NavItem[] = [
     ],
   },
 ];
+
+
+
+
+
+
+export const navItemsIslamic: NavItem[] = [
+  
+  {
+    title: "FinUps Islamic",
+    href: "/finups-islamic",
+    icon: AppWindow,
+    subItems: [
+      { name: "Islamic Banking", href: "/finups-islamic" },
+      { name: "Shariah-Compliant Loans", href: "/under-construction" },
+      { name: "Zakat Calculator", href: "/finups-islamic/tools/zakat-calculator" },
+    ],
+  },
+  {
+    title: "Blogs",
+    href: "/blog/blogs",
+    icon: AppWindow,
+    subItems: [
+      { name: "See Our Blogs", href: "/blog/blogs" },
+    ],
+  },
+];
+
