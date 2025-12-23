@@ -28,7 +28,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <div className="z-50 ">
       <Sidebar
-        className="w-72  shadow-lg transition-all "
+        className="w-72 shadow-lg transition-all "
         collapsible="icon"
         {...props}
       >

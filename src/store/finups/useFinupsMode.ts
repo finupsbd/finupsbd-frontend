@@ -27,7 +27,6 @@ export const useFinupsMode = create<FinupsModeState>()(
     }),
     {
       name: "finups-mode", // stored in localStorage
-      
     }
   )
 );

@@ -16,12 +16,7 @@ export default function FinupsModeToggle() {
   };
 
   return (
-    <div className="flex items-center gap-4 rounded-xl border px-2 w-fit text-sm">
-      <span className={isGeneral ? "font-semibold" : "text-muted-foreground"}>
-        Finups General
-      </span>
-
-
+    <div className="flex items-center gap-4 rounded-md border px-2 w-fit text-sm">
       <Switch
         id="finups-mode"
         checked={!isGeneral}
@@ -33,9 +28,9 @@ export default function FinupsModeToggle() {
         }
       />
 
-      <span className={!isGeneral ? "font-semibold" : "text-muted-foreground"}>
+      <h4 className={!isGeneral ? "font-semibold" : "text-muted-foreground"}>
         Finups Islamic
-      </span>
+      </h4>
     </div>
   );
 }

@@ -15,6 +15,7 @@ import slide4 from "@/assets/images/slider/slide-4.jpg";
 import slide5 from "@/assets/images/slider/slide-5.jpg";
 import EligibilityNavigation from "./EligibilityNavigation";
 import { usePathname } from "next/navigation";
+import { useFinupsMode } from "@/store/finups/useFinupsMode";
 
 export const sliderData = [
   {
@@ -47,8 +48,8 @@ export const sliderData = [
 const HomeSlider = () => {
 
   const path = usePathname()
+  const {mode} = useFinupsMode()
 
-  console.log(path)
 
   return (
     <section className="relative mb-6 w-full lg:mb-20">

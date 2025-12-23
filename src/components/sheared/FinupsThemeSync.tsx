@@ -10,7 +10,9 @@ export default function FinupsThemeSync() {
 
     useEffect(() => {
         document.documentElement.setAttribute("data-finups", mode);
-        toast.success(mode === "GENERAL" ? "Finups General Mode Activated" : "Finups Islamic Mode Activated" )
+       if(mode === "ISLAMIC") {
+        toast.success("Switched to Finups Islamic Mode");
+       } 
     }, [mode]);
 
     return null;
