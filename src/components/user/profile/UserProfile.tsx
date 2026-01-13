@@ -145,7 +145,7 @@ export default function UserProfile() {
   ];
 
   return (
-    <Card className="relative mx-auto w-full max-w-3xl border-muted/30 shadow-sm rounded-xl">
+    <Card className="relative mx-auto w-full border-muted/30 shadow-sm rounded-xl">
       <CardHeader className="relative rounded-t-xl pb-4">
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div className="flex flex-col sm:flex-row sm:gap-4 gap-2 items-center sm:items-start">

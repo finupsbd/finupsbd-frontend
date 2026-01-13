@@ -6,14 +6,13 @@ import { useUser } from "@/context/UserContext";
 import { LogIn, User } from "lucide-react";
 import Link from "next/link";
 import MobileUserProfileMenu from "./UserProfileMenu";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 
 const UserLogin = () => {
 
   const { user, setIsLoading } = useUser();
 
 
-  
 
   return (
     <>
@@ -22,7 +21,7 @@ const UserLogin = () => {
           <Sheet>
             <SheetTrigger asChild>
               <Avatar className="float-end mr-2">
-                <AvatarImage src={user?.avater} alt="User Image" />
+                <AvatarImage src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${user?.avater}` || ""} alt="User Image" />
                 <AvatarFallback className="bg-primary">
                   <User className="text-white" />
                 </AvatarFallback>

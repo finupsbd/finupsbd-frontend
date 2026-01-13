@@ -4,6 +4,7 @@ import { AlignJustify } from "lucide-react";
 import SiteLogo from "../../SiteLogo";
 import MobileMenuContent from "./MobileMenuContent";
 import UserLogin from "./UserLogin";
+import FinupsModeToggle from "../../FinupsModeToggle";
 
 
 
@@ -27,6 +28,7 @@ const MobileHeader = () => {
       <div className="w-8/12 text-center">
         <SiteLogo className="mx-auto w-52" />
       </div>
+          <FinupsModeToggle />
       <div className="flex w-3/12 flex-col">
         <UserLogin />
       </div>

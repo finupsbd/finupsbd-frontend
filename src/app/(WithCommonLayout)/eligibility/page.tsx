@@ -5,6 +5,7 @@ import EligibilityCheckDataShow from "@/components/modules/eligibility/Eligibili
 import { TEligibilityCheckDataShow } from "@/components/modules/eligibility/EligibilityTypes";
 import { Button } from "@/components/ui/button";
 import { eligibilityCheckData } from "@/services/eligibilityCheck";
+import { useFinupsMode } from "@/store/finups/useFinupsMode";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -35,6 +36,7 @@ const EligibilityPage = () => {
   });
   const searchParams = useSearchParams();
 
+  const {mode} = useFinupsMode()
 
 
 
@@ -50,9 +52,10 @@ const EligibilityPage = () => {
     const fetchData = async () => {
       try {
         const data = sessionStorage.getItem("eligibilityData");
+        
         if (data) {
           const parsedData = JSON.parse(data);
-          const result = await eligibilityCheckData(parsedData, queryData)
+          const result = await eligibilityCheckData(parsedData, queryData, mode);
           setSubmissionData(result?.data);
         }
       } catch (error) {

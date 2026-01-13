@@ -2,14 +2,18 @@
 
 
 
-export const eligibilityCheckData = async (payload: any, queryData: any) => {
+export const eligibilityCheckData = async (payload: any, queryData: any, mode?: string) => {
 
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/eligibility-check?amount=${queryData?.amount}&intersteRate=${queryData?.interestRate}&searchTerm${queryData?.searchTerm}&sortOrder=${queryData?.sortOrder}&page=${queryData?.page}&sortKey=${queryData?.sortKey}&tenure=${queryData?.tenure}`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-finups-mode": mode || "GENERAL",
+        },
+
         body: JSON.stringify(payload),
       },
 
@@ -33,7 +37,7 @@ export const eligibilityCheckData = async (payload: any, queryData: any) => {
 
 
 
-export const withoutEligiblityCards = async (query: {cardType: any}) => {
+export const withoutEligiblityCards = async (query: { cardType: any }) => {
 
   try {
     const res = await fetch(

@@ -66,12 +66,12 @@ const Header = ({ hasSidebar = true }) => {
                     /> */}
                     {/* <FinupsIslamicButton/> */}
                     <FinupsModeToggle/>
-                    <Link href="/track-application/track-application-public" className="!text-xl">
+                    {/* <Link href="/track-application/track-application-public" className="!text-xl">
                       <Button variant="outline" className="h-10">
                         <Globe className="h-14 w-14 text-6xl" />
                         Track Application
                       </Button>
-                    </Link>
+                    </Link> */}
                     <ProfileMenu />
                   </div>
                 </div>

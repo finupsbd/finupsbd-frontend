@@ -4,8 +4,8 @@ import Header from "@/components/sheared/Header";
 export default function FinupsIslamicLayout({ children, }: { children: React.ReactNode }) {
 
     return <section>
-        <Header/>
+        <Header />
         {children}
-        <Footer/>
+        <Footer />
     </section>
 }

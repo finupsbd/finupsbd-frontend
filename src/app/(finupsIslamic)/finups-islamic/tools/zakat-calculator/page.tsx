@@ -1,9 +1,10 @@
+import ZakatHeader from '@/components/finups-islamic/tools/zakat-calculator/ZakatHeader'
 import React from 'react'
 
 const ZakatCalculatorPage = () => {
   return (
     <div>
-      Zakat Calculator
+      <ZakatHeader/>
     </div>
   )
 }
