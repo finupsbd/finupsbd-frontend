@@ -19,6 +19,8 @@ interface NavItem {
 
 
 
+
+
 export const navItems: NavItem[] = [
   {
     title: "Loans",
@@ -78,7 +80,17 @@ export const navItems: NavItem[] = [
 
 
 export const navItemsIslamic: NavItem[] = [
-  
+  {
+    title: "Islamic Loans ",
+    href: "#",
+    icon: Banknote,
+    subItems: [
+      { name: "HPSM Personal Loan", href: "/modules/general/personal-loan" },
+      { name: "HPSM Home Loan", href: "/under-construction" },
+      { name: "HPSM Car Loan", href: "/under-construction" },
+      { name: "Bai Muajjal", href: "/under-construction" },
+    ],
+  },
   {
     title: "FinUps Islamic",
     href: "/finups-islamic",

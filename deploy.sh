@@ -9,11 +9,11 @@ NODE_ENV="production"
 echo "🚀 Starting deployment..."
 
 cd $APP_DIR || exit
-echo "🔄 Pulling latest changes from Git..."
-
+echo "🔄 Pulling latest changes from Git...(IMPORTENT: All local changes will be lost)"
+git reset --hard HEAD
 git pull origin main
 
-
+ 
 
 
 echo "📦 Installing dependencies..."
