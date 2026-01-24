@@ -1,12 +1,16 @@
+import MetalPriceCalculator from '@/components/finups-islamic/tools/zakat-calculator/GoldSilverCalculator'
 import ZakatCalculator from '@/components/finups-islamic/tools/zakat-calculator/ZakatCalculator'
-import ZakatHeader from '@/components/finups-islamic/tools/zakat-calculator/ZakatHeader'
+import ZakatCalculatorNew from '@/components/finups-islamic/tools/zakat-calculator/ZakatCalculatorNew'
+import ZakatWarning from '@/components/finups-islamic/tools/zakat-calculator/ZakatWarning'
 import React from 'react'
 
 const ZakatCalculatorPage = () => {
   return (
     <div>
-      {/* <ZakatHeader/> */}
-      <ZakatCalculator/>
+      {/* <ZakatCalculator/> */}
+      <ZakatWarning/>
+      <ZakatCalculatorNew/>
+      {/* <MetalPriceCalculator/> */}
     </div>
   )
 }

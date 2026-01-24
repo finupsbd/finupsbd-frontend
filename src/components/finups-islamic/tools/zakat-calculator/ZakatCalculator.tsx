@@ -24,6 +24,7 @@ import {
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts"
 import ZakatWarning from "./ZakatWarning"
 
+
 type CalculationType = "wealth" | "income" | "business" | "comparative"
 type IslamicSchool = keyof typeof ISLAMIC_SCHOOLS
 
@@ -77,8 +78,6 @@ const ISLAMIC_SCHOOLS = {
     zakatRate: 0.025,
   },
 } as const
-
-
 
 
 
@@ -148,7 +147,7 @@ useEffect(() => {
     const gramsSilver = bhoriSilver * BHORI_TO_GRAMS
 
     // Calculate price per gram (assuming market rate)
-    const goldPerGram = 7500 // Default BDT per gram
+    const goldPerGram = 18076 // Default BDT per gram
     const silverPerGram = 850
 
     const newGoldPrice = gramsGold * goldPerGram
@@ -201,6 +200,9 @@ useEffect(() => {
   localStorage.setItem("zakatCalculations", JSON.stringify(limited))
 }
 
+
+
+///// calculator main logic
 
   const handleWealthCalculate = () => {
     const parsedGold = Number.parseFloat(gold) || 0
@@ -356,6 +358,9 @@ useEffect(() => {
     })
   }
 
+
+
+
   const handleGenerateShareLink = () => {
     const data = {
       wealth: wealthResult,
@@ -427,16 +432,7 @@ useEffect(() => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-green-700 via-emerald-700 to-teal-700 text-white py-10 px-4 text-center shadow-2xl">
-        <h1 className="text-5xl font-bold mb-3">আপনার যাকাত সহজেই হিসাব করুন</h1>
-        <p> আপনার যাকাতের হিসাব বের করার জন্য ধারাবাহিকভাবে সংশ্লিষ্ট ঘরগুলো বুঝে
-            যত্নের সাথে পূরণ করুন। কোনো বিষয় না বুঝে পূরণ করবেন না। এতে যাকাতের
-            প্রকৃত হিসাব করা সম্ভব হবে না।</p>
-        <p className="text-lg opacity-95 font-semibold">অত্যাধুনিক হিসাব - সম্পদ, আয়, ব্যবসা, ট্যাক্স এবং তুলনামূলক বিশ্লেষণ 
-           
-        </p>
-      </div>
+   
       <ZakatWarning/>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -498,10 +494,11 @@ useEffect(() => {
             {priceSource === "manual" && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">সোনার মূল্য (প্রতি গ্রাম)</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">সোনার মূল্য (প্রতি গ্রাম)(87.48g × 7500 = ৳656,100)</label>
                   <Input
                     type="number"
                     value={priceData.goldPrice}
+                     disabled
                     onChange={(e) =>
                       setPriceData({
                         ...priceData,
@@ -513,10 +510,11 @@ useEffect(() => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">রূপার মূল্য (প্রতি গ্রাম)</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">রূপার মূল্য (প্রতি গ্রাম)( 612g × 850 = ৳520,200  ← কম ) </label>
                   <Input
                     type="number"
                     value={priceData.silverPrice}
+                    disabled
                     onChange={(e) =>
                       setPriceData({
                         ...priceData,
@@ -529,7 +527,7 @@ useEffect(() => {
                 </div>
                 <div className="flex flex-col justify-end">
                   <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3">
-                    <p className="text-xs text-emerald-700 mb-1">কার্যকর নিসাব</p>
+                    <p className="text-xs text-emerald-700 mb-1">কার্যকর নিসাব (ক্যালেন্ডার ইয়ার)</p>
                     <p className="text-xl font-bold text-emerald-700">
                       ৳{getNisabValueByMetal().toLocaleString("bn-BD")}
                     </p>
@@ -644,7 +642,8 @@ useEffect(() => {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex gap-3">
                       <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                       <p className="text-sm text-blue-700">
-                        কার্যকর নিসাব: ৳<span className="font-bold">{getNisabValueByMetal().toLocaleString("bn-BD")}</span>
+                        কার্যকর নিসাব: 
+                        ৳<span className="font-bold">{getNisabValueByMetal().toLocaleString("bn-BD")}</span>
                       </p>
                     </div>
 
