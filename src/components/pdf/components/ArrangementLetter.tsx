@@ -10,16 +10,11 @@ import {
   View,
   StyleSheet,
   Font,
-  PDFDownloadLink,
   Image as PDFImage,
 } from "@react-pdf/renderer";
 import { TAgreementDoc } from "@/types/applications";
 
-/**
- * Bangla-capable fonts in /public/fonts:
- * - /fonts/NotoSansBengali-Regular.ttf
- * - /fonts/NotoSansBengali-Bold.ttf
- */
+
 try {
   Font.register({
     family: "NotoSansBengali",
@@ -81,23 +76,6 @@ const formatDate = (iso: string | Date) => {
     .replace(/ /g, "-");
 };
 
-const splitAddress = (addr: string): string[] => {
-  // Try to keep commas as line breaks; fallback to ~50 char wrap
-  const parts = addr.split(",").map((s) => s.trim()).filter(Boolean);
-  if (parts.length) return parts;
-  const lines: string[] = [];
-  let cur = "";
-  addr.split(" ").forEach((w) => {
-    if ((cur + " " + w).trim().length > 50) {
-      lines.push(cur.trim());
-      cur = w;
-    } else {
-      cur = (cur + " " + w).trim();
-    }
-  });
-  if (cur) lines.push(cur);
-  return lines;
-};
 
 const purposeFromLoanType = (loanType: string): string => {
   switch (loanType) {
@@ -168,8 +146,6 @@ const toLetterData = (app: TAgreementDoc): LetterData => {
     rightSignerLabel: "অনুমোদিত স্বাক্ষর",
   };
 };
-
-
 
 
 /* -------------------- PDF Styles (unchanged) -------------------- */
@@ -483,9 +459,6 @@ const LetterDOM: React.FC<{ data: LetterData; amountWords?: string }> = ({
     </div>
   );
 };
-
-
-
 
 
 /* -------------------- Page Component -------------------- */

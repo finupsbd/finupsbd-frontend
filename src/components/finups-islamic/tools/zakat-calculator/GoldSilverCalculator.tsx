@@ -61,8 +61,8 @@ export default function GoldAndSilverCalculator() {
 
   const savePrices = async (goldPricesData: any, silverPriceData: any) => {
     try {
-       localStorage.set('gold-prices', JSON.stringify(goldPricesData));
-       localStorage.set('silver-price', JSON.stringify(silverPriceData));
+       localStorage.setItem('gold-prices', JSON.stringify(goldPricesData));
+       localStorage.setItem('silver-price', JSON.stringify(silverPriceData));
     } catch (error) {
       console.error('Failed to save prices:', error);
     }
@@ -73,6 +73,8 @@ export default function GoldAndSilverCalculator() {
     setSilverPrice(defaultSilverPrice);
     setTempPrices(defaultGoldPrices);
     setTempSilverPrice(defaultSilverPrice);
+    // localStorage.removeItem('gold-prices');
+    // localStorage.removeItem('silver-price');
     await savePrices(defaultGoldPrices, defaultSilverPrice);
   };
 
@@ -390,7 +392,7 @@ export default function GoldAndSilverCalculator() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="24">২৪</SelectItem>
+                            {/* <SelectItem value="24">২৪</SelectItem> */}
                             <SelectItem value="22">২২</SelectItem>
                             <SelectItem value="21">২১</SelectItem>
                             <SelectItem value="18">১৮</SelectItem>

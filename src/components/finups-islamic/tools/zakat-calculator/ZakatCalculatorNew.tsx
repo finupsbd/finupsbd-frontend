@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import GoldAndSilverCalculator from './GoldSilverCalculator';
 import Link from 'next/link';
+import ZakatSummaryCard from './ZakatSummaryCard';
 
 const ZakatCalculatorNew = () => {
   const [language, setLanguage] = useState<'english' | 'bangla'>('english');
@@ -156,12 +157,26 @@ const ZakatCalculatorNew = () => {
     parseNumber(values.creditCards) +
     parseNumber(values.otherLiabilities);
 
+  const jakatNisab = 199500
   const netAssets = totalAssets - totalLiabilities;
-  const zakatDue = netAssets * 0.025;
+
+
+
+  let zakatDue = 0
+
+  if(jakatNisab < netAssets ){
+    //  zakatDue = netAssets * 0.025;
+     const zakat = netAssets - jakatNisab
+     zakatDue = zakat * 0.025;
+  }
+  
+
 
   const handlePrint = () => {
     window.print();
   };
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50 p-4 print:bg-white">
@@ -191,7 +206,13 @@ const ZakatCalculatorNew = () => {
         <Card className="shadow-lg print:shadow-none">
           <CardHeader className="bg-emerald-600 text-white print:bg-emerald-700">
             {/* <CardTitle className="text-2xl print:text-xl">{t.title}</CardTitle> */}
-            <CardDescription className="text-emerald-50">2.5% of net assets</CardDescription>
+            {/* <CardDescription className="text-emerald-50">2.5% of net assets</CardDescription> */}
+            <CardDescription>
+              <ZakatSummaryCard
+              amount={199500}
+              lastUpdated="20/01/2026"
+              />
+            </CardDescription>
           </CardHeader>
           
           <CardContent className="p-6 print:p-4">
@@ -519,7 +540,7 @@ const ZakatCalculatorNew = () => {
               <div className="p-6 bg-gradient-to-r from-emerald-100 to-emerald-200 rounded-lg border-4 border-emerald-400 print:bg-gray-200 print:border-gray-400">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-xl font-bold text-emerald-900">{t.zakatDue}:</span>
-                  <span className="text-3xl font-bold text-emerald-700">{zakatDue.toFixed(2)}</span>
+                  {zakatDue === 0 ? <span className="text-3xl font-bold text-emerald-700">NO</span> : <span className="text-3xl font-bold text-emerald-700">{zakatDue.toFixed(2)}</span> }
                 </div>
               </div>
 

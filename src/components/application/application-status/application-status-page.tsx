@@ -3,14 +3,14 @@
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-
-import { Calendar, Clock, FileText, User, AlertCircle, CheckCircle2, Send, PlayCircle, XCircle } from "lucide-react"
+import { Calendar, Clock, FileText, CheckCircle2, Send, PlayCircle, XCircle } from "lucide-react"
 import { AdminNotesSection } from "./admin-notes-section"
 import { FileUploadSection } from "./file-upload-section"
 import { ApplicationStatusBar } from "@/components/small-component/ApplicationStatusBar"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+
+
 
 export interface TApplicationData {
     additionalDocumentSubmit: boolean
