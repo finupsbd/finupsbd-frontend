@@ -17,10 +17,10 @@ git pull origin main
 
 
 echo "📦 Installing dependencies..."
-npm install 
+pnpm install 
 
 echo "🏗️ Building Next.js app..."
-npm run build
+pnpm run build
 
 echo "♻️ Restarting app with PM2..."
 
