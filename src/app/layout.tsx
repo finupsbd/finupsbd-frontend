@@ -1,16 +1,22 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Providers from "@/providers/Providers";
-import { Inter } from "next/font/google";
 import React from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
 import FinupsThemeSync from "@/components/sheared/FinupsThemeSync";
+import localFont from "next/font/local"
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "../assets/fonts/Inter-VariableFont.ttf",
   variable: "--font-inter",
   display: "swap",
-});
+})
+
+// const inter = Inter({
+//   subsets: ["latin"],
+//   variable: "--font-inter",
+//   display: "swap",
+// });
 
 export const metadata = {
   title: "FinupsBD",

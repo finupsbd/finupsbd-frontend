@@ -34,9 +34,6 @@ export const eligibilityCheckData = async (payload: any, queryData: any, mode?: 
   }
 };
 
-
-
-
 export const withoutEligiblityCards = async (query: { cardType: any }) => {
 
   try {
