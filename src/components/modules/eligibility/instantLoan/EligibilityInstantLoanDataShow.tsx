@@ -206,9 +206,9 @@ function EligibilityInstantLoanDataShow({
                     </p>
                   </div>
                   <div className="mt-3 flex justify-end">
-                    <Button onClick={() => handelApplication(data)}>
+                    {/* <Button onClick={() => handelApplication(data)}>
                       Apply Loan
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </div>

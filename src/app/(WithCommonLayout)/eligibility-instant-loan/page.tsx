@@ -21,18 +21,12 @@ const InastantLoanPage = () => {
   const [queryData, setQueryData] = useState<{ tenure: number }>();
 
 
-
-
-
   const handleQueryData = (data: QueryDataProps) => {
     setQueryData(data);
   };
 
-
-
-
+  
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const data = sessionStorage.getItem("eligibilityData");
